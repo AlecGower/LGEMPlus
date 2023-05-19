@@ -1,0 +1,15 @@
+tqdm
+seaborn
+cobra
+ipykernel
+beautifulsoup4
+pandas
+matplotlib
+scikit-learn
+scikit-learn-intelex
+lxml
+openpyxl
+graphviz
+networkx
+pydot
+jellyfish
