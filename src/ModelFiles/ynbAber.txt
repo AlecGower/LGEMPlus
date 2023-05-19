@@ -1,0 +1,32 @@
+Compound	Compound Name
+C00014	NH3
+C00059	Sulfate
+C00120	Biotin
+C00076	Calcium
+C00864	Pantothenate
+C00504	Folic acid
+C00137	myo-Inositol
+C00253	Nicotinate
+C00568	4-Aminobenzoate
+C00314	Pyridoxine
+C00255	Riboflavin
+C00378	Thiamin
+C00115	Chloride
+C06266	Boron
+C00070	Copper
+C08219	Potassium iodide
+C00023	Iron
+C00034	Manganese
+C01330	Sodium
+C00038	Zinc
+C00238	Potassium
+C00009	Orthophosphate
+C06232	Molybdate
+C00305	Magnesium
+C08130	Calcium chloride
+C00106	Uracil
+C00123	L-Leucine
+C00267	alpha-D-Glucose
+C00135	L-Histidine
+C00001	H2O
+C00080	H+

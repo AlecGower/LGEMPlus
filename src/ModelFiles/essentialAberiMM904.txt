@@ -1,0 +1,78 @@
+Compound	Compound Name	iMM904	Comments
+C00041	L-Alanine	L-Alanine
+C00037	Glycine	Glycine
+C00079	L-Phenylalanine	L-Phenylalanine
+C00078	L-Tryptophan	L-Tryptophan
+C00082	L-Tyrosine	L-Tyrosine
+C00407	L-Isoleucine	L-Isoleucine
+C00073	L-Methionine	L-Methionine
+C00062	L-Arginine	L-Arginine
+C00049	L-Aspartate	L-Aspartate
+C00135	L-Histidine	L-Histidine
+C00097	L-Cysteine	L-Cysteine
+C00025	L-Glutamate	L-Glutamate
+C00064	L-Glutamine	L-Glutamine
+C00047	L-Lysine	L-Lysine
+C00148	L-Proline	L-Proline
+C00065	L-Serine	L-Serine
+C00188	L-Threonine	L-Threonine
+C00183	L-Valine	L-Valine
+C00152	L-Asparagine	L-Asparagine
+C00123	L-Leucine	L-Leucine
+C00242	Guanine	Guanine
+C00106	Uracil	Uracil
+C00147	Adenine	Adenine
+C00262	Hypoxanthine	Hypoxanthine
+C00178	Thymine	Thymine C5H6N2O2
+C00380	Cytosine	Cytosine
+C00212	Adenosine	Adenosine
+C00387	Guanosine	Guanosine
+C00294	Inosine	Inosine
+C00214	Thymidine	Thymidine C10H14N2O5
+C00299	Uridine	Uridine
+C00475	Cytidine	Cytidine
+C00020	AMP	AMP C10H12N5O7P
+C00144	GMP	GMP C10H12N5O8P
+C00130	IMP	IMP C10H11N4O8P
+C00105	UMP	UMP C9H11N2O9P
+C00055	CMP	CMP C9H12N3O8P
+C00002	ATP	ATP C10H12N5O13P3
+C00044	GTP	GTP C10H12N5O14P3
+C00075	UTP	UTP C9H11N2O15P3
+C00005	NADPH	Nicotinamide adenine dinucleotide phosphate - reduced
+C00004	NADH	Nicotinamide adenine dinucleotide - reduced
+C00016	FAD	Flavin adenine dinucleotide oxidized
+C00008	ADP	ADP C10H12N5O10P2
+C00035	GDP	GDP C10H12N5O11P2
+C00015	UDP	UDP C9H11N2O12P2
+C00068	Thiamin diphosphate	Thiamine diphosphate
+C03028	Thiamin triphosphate	Thiamin triphosphate C12H16N4O10P3S
+C00006	NADP+	Nicotinamide adenine dinucleotide phosphate
+C00003	NAD+	Nicotinamide adenine dinucleotide
+C00061	FMN	FMN C17H19N4O9P
+C00575	3' 5'-Cyclic AMP	CAMP C10H11N5O6P
+C00002	ATP	ATP C10H12N5O13P3
+C00044	GTP	GTP C10H12N5O14P3
+C00063	CTP	CTP C9H12N3O14P3
+C00075	UTP	UTP C9H11N2O15P3
+C00131	dATP	DATP C10H12N5O12P3
+C00286	dGTP	DGTP C10H12N5O13P3
+C00458	dCTP	DCTP C9H12N3O13P3
+C00459	dTTP	DTTP C10H13N2O14P3
+C00103	D-Glucose 1-phosphate	D-Glucose 1-phosphate
+C00043	UDP-N-acetyl-D-glucosamine	
+UDP-N-acetyl-D-galactosamine	listed as the product of reaction EC 2.7.7.23
+C00096	GDPmannose	GDP-D-mannose
+C00114	choline	Choline C5H14NO
+C00157	lecithin	Phosphatidylcholine  yeast specific C4040H7844N100O800P100
+C00416	phosphatidate	Phosphatidate  yeast specific C3540H6544O800P100
+C00422	triacylglycerol	Triglyceride  yeast specific C5160H9566O600
+C01694	ergosterol	Ergosterol C28H44O
+C00189	ethanolamine	Ethanolamine
+C00116	glycerol	Glycerol
+C00137	inositol	Myo-Inositol
+C01120	sphinganine 1-phosphate	Sphinganine 1 phosphate C18H39NO5P
+C00668	alphaD-glucose 6-phosphate	D-Glucose 6-phosphate
+C00022	pyruvate	Pyruvate
+C00024	acetyl-CoA	Acetyl-CoA
+C00356	3-Hydroxy-3-methyl-glutaryl CoA	Hydroxymethylglutaryl CoA C27H39N7O20P3S

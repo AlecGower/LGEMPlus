@@ -1,0 +1,77 @@
+	Compound	Compound Name	yeastGEM	Comments
+0	C00041	L-Alanine	L-alanine	
+1	C00037	Glycine	L-glycine	
+2	C00079	L-Phenylalanine	L-phenylalanine	
+3	C00078	L-Tryptophan	L-tryptophan	
+4	C00082	L-Tyrosine	L-tyrosine	
+5	C00407	L-Isoleucine	L-isoleucine	
+6	C00073	L-Methionine	L-methionine	
+7	C00062	L-Arginine	L-arginine	
+8	C00049	L-Aspartate	L-aspartate	
+9	C00135	L-Histidine	L-histidine	
+10	C00097	L-Cysteine	L-cysteine	
+11	C00025	L-Glutamate	L-glutamate	
+12	C00064	L-Glutamine	L-glutamine	
+13	C00047	L-Lysine	L-lysine	
+14	C00148	L-Proline	L-proline	
+15	C00065	L-Serine	L-serine	
+16	C00188	L-Threonine	L-threonine	
+17	C00183	L-Valine	L-valine	
+18	C00152	L-Asparagine	L-asparagine	
+19	C00123	L-Leucine	L-leucine	
+20	C00242	Guanine	guanine	
+21	C00106	Uracil	uracil	
+22	C00147	Adenine	adenine	
+23	C00262	Hypoxanthine	hypoxanthine	
+24	C00178	Thymine		
+25	C00380	Cytosine	cytosine	
+26	C00212	Adenosine	adenosine	
+27	C00387	Guanosine	guanosine	
+28	C00294	Inosine	inosine	
+29	C00214	Thymidine	thymidine	
+30	C00299	Uridine	uridine	
+31	C00475	Cytidine	cytidine	
+32	C00020	AMP	AMP	
+33	C00144	GMP	GMP	
+34	C00130	IMP	IMP	
+35	C00105	UMP	UMP	
+36	C00055	CMP	CMP	
+37	C00002	ATP	ATP	
+38	C00044	GTP	GTP	
+39	C00075	UTP	UTP	
+40	C00005	NADPH	NADPH	
+41	C00004	NADH	NADH	
+42	C00016	FAD	FAD	
+43	C00008	ADP	ADP	
+44	C00035	GDP	GDP	
+45	C00015	UDP	UDP	
+46	C00068	Thiamin diphosphate	TDP	
+47	C03028	Thiamin triphosphate	thiamine(1+) triphosphate(4-)	
+48	C00006	NADP+	NADP(+)	
+49	C00003	NAD+	NAD	
+50	C00061	FMN	FMN	
+51	C00575	3' 5'-Cyclic AMP	3',5'-cyclic AMP	
+52	C00002	ATP	ATP	
+53	C00044	GTP	GTP	
+54	C00063	CTP	CTP	
+55	C00075	UTP	UTP	
+56	C00131	dATP	dATP	
+57	C00286	dGTP	dGTP	
+58	C00458	dCTP	dCTP	
+59	C00459	dTTP	dTTP	
+60	C00103	D-Glucose 1-phosphate	D-glucose 1-phosphate	
+61	C00043	UDP-N-acetyl-D-glucosamine	UDP-N-acetyl-alpha-D-glucosamine	
+62	C00096	GDPmannose	GDP-alpha-D-mannose	
+63	C00114	choline	choline	
+64	C00157	lecithin	phosphatidylcholine backbone	
+65	C00416	phosphatidate	phosphatidate	
+66	C00422	triacylglycerol	triglyceride backbone	
+67	C01694	ergosterol	ergosterol	
+68	C00189	ethanolamine	ethanolamine	
+69	C00116	glycerol	glycerol	
+70	C00137	inositol	myo-inositol	
+71	C01120	sphinganine 1-phosphate	sphinganine 1-phosphate	
+72	C00668	alphaD-glucose 6-phosphate	alpha-D-Glucose 6-phosphate	
+73	C00022	pyruvate	pyruvate	
+74	C00024	acetyl-CoA	acetyl-CoA	
+75	C00356	3-Hydroxy-3-methyl-glutaryl CoA	3-hydroxy-3-methylglutaryl-CoA	

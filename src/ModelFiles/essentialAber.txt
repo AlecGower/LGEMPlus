@@ -1,0 +1,77 @@
+Kegg Compound ID	Compound Name	Compound type/function
+C00041	L-Alanine	amino acid
+C00037	Glycine	amino acid
+C00079	L-Phenylalanine	amino acid
+C00078	L-Tryptophan	amino acid
+C00082	L-Tyrosine	amino acid
+C00407	L-Isoleucine	amino acid
+C00073	L-Methionine	amino acid
+C00062	L-Arginine	amino acid
+C00049	L-Aspartate	amino acid
+C00135	L-Histidine	amino acid
+C00097	L-Cysteine	amino acid
+C00025	L-Glutamate	amino acid
+C00064	L-Glutamine	amino acid
+C00047	L-Lysine	amino acid
+C00148	L-Proline	amino acid
+C00065	L-Serine	amino acid
+C00188	L-Threonine	amino acid
+C00183	L-Valine	amino acid
+C00152	L-Asparagine	amino acid
+C00123	L-Leucine	amino acid
+C00242	Guanine	base
+C00106	Uracil	base
+C00147	Adenine	base
+C00262	Hypoxanthine	base
+C00178	Thymine	base
+C00380	Cytosine	base
+C00212	Adenosine	nucleoside
+C00387	Guanosine	nucleoside
+C00294	Inosine	nucleoside
+C00214	Thymidine	nucleoside
+C00299	Uridine	nucleoside
+C00475	Cytidine	nucleoside
+C00020	AMP	nucleotide
+C00144	GMP	nucleotide
+C00130	IMP	nucleotide
+C00105	UMP	nucleotide
+C00055	CMP	nucleotide
+C00002	ATP	energy transfer
+C00044	GTP	energy transfer
+C00075	UTP	enery transfer
+C00005	NADPH	coenzyme
+C00004	NADH	coenzyme
+C00016	FAD	coenzyme
+C00008	ADP	energy transfer
+C00035	GDP	energy transfer
+C00015	UDP	energy transfer
+C00068	Thiamin diphosphate	coenzyme
+C03028	Thiamin triphosphate	coenzyme
+C00006	NADP+	coenzyme
+C00003	NAD+	coenzyme
+C00061	FMN	coenzyme
+C00575	3' 5'-Cyclic AMP	energy transfer
+C00002	ATP	nucleic acid
+C00044	GTP	nucleic acid
+C00063	CTP	nucleic acid
+C00075	UTP	nucleic acid
+C00131	dATP	nucleic acid
+C00286	dGTP	nucleic acid
+C00458	dCTP	nucleic acid
+C00459	dTTP	nucleic acid
+C00103	D-Glucose 1-phosphate	polysaccharide
+C00043	UDP-N-acetyl-D-glucosamine	polysaccharide
+C00096	GDPmannose	polysaccharide
+C00114	choline	membrane
+C00157	lecithin	membrane
+C00416	phosphatidate	membrane
+C00422	triacylglycerol	membrane
+C01694	ergosterol	membrane
+C00189	ethanolamine	membrane
+C00116	glycerol	membrane
+C00137	inositol	membrane
+C01120	sphinganine 1-phosphate	membrane
+C00668	alphaD-glucose 6-phosphate	intermediate
+C00022	pyruvate	intermediate
+C00024	acetyl-CoA	intermediate
+C00356	3-Hydroxy-3-methyl-glutaryl CoA	intermediate

@@ -1,0 +1,32 @@
+	Compound	Compound Name	yeastGEM
+0	C00014	NH3	ammonium
+1	C00059	Sulfate	sulphate
+2	C00120	Biotin	biotin
+3	C00076	Calcium	Ca(2+)
+4	C00864	Pantothenate	(R)-pantothenate
+5	C00504	Folic acid	folate
+6	C00137	myo-Inositol	myo-inositol
+7	C00253	Nicotinate	nicotinate
+8	C00568	4-Aminobenzoate	4-aminobenzoate
+9	C00314	Pyridoxine	pyridoxine
+10	C00255	Riboflavin	riboflavin
+11	C00378	Thiamin	thiamine
+12	C00115	Chloride	
+13	C06266	Boron	
+14	C00070	Copper	Cu2(+)
+15	C08219	Potassium iodide	
+16	C00023	Iron	iron(3+)
+17	C00034	Manganese	Mn(2+)
+18	C01330	Sodium	sodium
+19	C00038	Zinc	Zn(2+)
+20	C00238	Potassium	potassium
+21	C00009	Orthophosphate	phosphate
+22	C06232	Molybdate	
+23	C00305	Magnesium	Mg(2+)
+24	C08130	Calcium chloride	
+25	C00106	Uracil	uracil
+26	C00123	L-Leucine	L-leucine
+27	C00267	alpha-D-Glucose	alpha-D-Glucose
+28	C00135	L-Histidine	L-histidine
+29	C00001	H2O	H2O
+30	C00080	H+	H+
