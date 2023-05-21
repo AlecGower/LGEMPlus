@@ -178,7 +178,7 @@ def logical_model_from_sbml(
                 sbml_id=r.get("id"),
             )
         )
-        if include_reverse and r.get('reversible') == 'true':
+        if include_reverse and r.get("reversible") == "true":
             M.reactions.append(
                 LogicalReaction(
                     model=M,
@@ -191,3 +191,13 @@ def logical_model_from_sbml(
                 )
             )
     return M
+
+
+def theory_files_from_logical_model(
+    model: "LogicalMetabolicModel",
+    root_directory: str,
+    COMPARTMENTLESS: bool = False,
+    GENE_ACTIVATIONS: bool = True,
+    SPLIT_ESSENTIAL: bool = False,
+) -> None:
+    return
