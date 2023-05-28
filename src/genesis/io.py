@@ -32,7 +32,7 @@ def logical_model_from_sbml(
         b = BeautifulSoup(fi.read(), "xml")
 
     # Create model
-    M = LogicalMetabolicModel()
+    M = LogicalMetabolicModel(model_id=b.find('model').get('id'))
 
     # Load compartments
     for c in b.find_all("compartment"):

@@ -2,12 +2,12 @@
 from ast import arguments
 from genericpath import exists
 from lib2to3.pgen2 import literals
-from os import name
+from os import name, PathLike
 from pyexpat import model
 
 # from ctypes import Union
 import re
-from typing import Dict, Iterable, Union, Optional, Tuple
+from typing import Dict, Iterable, Union, Optional, Tuple, TextIO
 from copy import copy, deepcopy
 
 from pyparsing import originalTextFor
@@ -27,6 +27,7 @@ class Constant:
 class LogicalMetabolicModel:
     def __init__(
         self,
+        model_id: str = "unnamed_model",
         compartments: dict = {},
         metabolites: Iterable = [],
         genes: Iterable = [],
@@ -38,6 +39,7 @@ class LogicalMetabolicModel:
         #     r"^(?P<SPECIES>.+)\s\[(?P<COMPARTMENT>[^\[]+)\]$"
         # )
         # self.MET_ID_PATTERN = re.compile(r"^(?P<ID>s_\d{4})\[\w+\]$")
+        self.model_id = model_id
         self.clauses = set()
 
         self.compartments = {
@@ -81,16 +83,16 @@ class LogicalMetabolicModel:
     def get_gene(self, gene_orf: str):
         return [g for g in self.genes if g.orf == gene_orf][0]
 
-    def print_reactions(self, compartmentless: bool = False):
+    def print_reactions(self, compartmentless: bool = False, out_fo: Optional[TextIO] = None):
         for r in self.reactions:
-            print(r.cnf_lines(compartments=(not compartmentless)))
+            print(r.cnf_lines(compartments=(not compartmentless)), file=out_fo)
 
-    def print_genes(self, knocked_out: Iterable = []):
+    def print_genes(self, knocked_out: Iterable = [], out_fo: Optional[TextIO] = None):
         for g in self.genes:
             if g in knocked_out:
-                print(g.cnf_presence(present=False, presence_type="_deletion"))
+                print(g.cnf_presence(present=False, presence_type="_deletion"), file=out_fo)
             else:
-                print(g.cnf_presence(present=True, presence_type="_in_genome"))
+                print(g.cnf_presence(present=True, presence_type="_in_genome"), file=out_fo)
 
 
 # %%
@@ -281,7 +283,7 @@ class LogicalMetabolite:
                             type="axiom",
                         )
                     ),
-                    "\n",
+                    "",
                 ]
             )
         else:
@@ -342,7 +344,7 @@ class LogicalGene:
                         type="axiom",
                     )
                 ),
-                "\n",
+                "",
             ]
         )
 
