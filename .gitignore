@@ -1,6 +1,7 @@
 ## Folders
 prebuilt-images
-experiments/results
+src/experiments/results
+src/experiments/theories
 
 ## Default GitHub Python .gitignore template
 # Byte-compiled / optimized / DLL files
