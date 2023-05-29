@@ -16,6 +16,18 @@ ubiquitous_compounds = "ModelFiles/ubiquitousAberyeastGEM.txt"
 media_compounds = "ModelFiles/ynbAberyeastGEM.txt"
 media_name = "ynb"
 
+model_xml = "ModelFiles/iMM904.xml"
+query_compounds = "ModelFiles/essentialAberiMM904.txt"
+ubiquitous_compounds = "ModelFiles/ubiquitousAberiMM904.txt"
+media_compounds = "ModelFiles/ynbAberiMM904.txt"
+media_name = "ynb"
+
+model_xml = "ModelFiles/iND750.xml"
+query_compounds = "ModelFiles/essentialAberiND750.txt"
+ubiquitous_compounds = "ModelFiles/ubiquitousAberiND750.txt"
+media_compounds = "ModelFiles/ynbAberiND750.txt"
+media_name = "ynb"
+
 base_knocked_out = "HIS3 LEU2 LYS2 MET17 URA3".split(" ")
 
 GENE_ACTIVATIONS = True
@@ -35,21 +47,30 @@ compounds = {"query": [], "ubiquitous": [], "media": []}
 with open(query_compounds, "r") as fi:
     for (lnno, row) in enumerate(fi):
         if lnno > 0:
-            compound = row.split("\t")[3].rstrip()
+            try:
+                compound = row.split("\t")[3].rstrip()
+            except IndexError:
+                continue
             if compound != "":
                 compounds["query"].append(compound)
 
 with open(ubiquitous_compounds, "r") as fi:
     for (lnno, row) in enumerate(fi):
         if lnno > 0:
-            compound = row.split("\t")[3].rstrip()
+            try:
+                compound = row.split("\t")[3].rstrip()
+            except IndexError:
+                continue
             if compound != "":
                 compounds["ubiquitous"].append(compound)
 
 with open(media_compounds, "r") as fi:
     for (lnno, row) in enumerate(fi):
         if lnno > 0:
-            compound = row.split("\t")[3].rstrip()
+            try:
+                compound = row.split("\t")[3].rstrip()
+            except IndexError:
+                continue
             if compound != "":
                 compounds["media"].append(compound)
 
