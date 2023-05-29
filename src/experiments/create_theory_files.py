@@ -161,9 +161,7 @@ with open(theory_root / "query.p", "w") as fo:
 stream = os.popen(
     "|".join(
         [
-            "/Users/alexander/workspace/iprover/iproveropt $(ls {}/*.p)".format(
-                theory_root
-            ),
+            '$IPROVER_HOME"/iproveropt" $(ls {}/*.p)'.format(theory_root),
             'grep "{~("',
             'grep -v "rxn("',
             'grep -v "enz("',
