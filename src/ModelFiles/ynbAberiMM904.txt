@@ -1,32 +1,32 @@
-Compound	Compound Name	iMM904
-C00014	NH3	Ammonium
-C00059	Sulfate	Sulfate
-C00120	Biotin	Biotin
-C00076	Calcium	NULL
-C00864	Pantothenate	(R)-Pantothenate
-C00504	Folic acid	NULL
-C00137	myo-Inositol	Myo-Inositol
-C00253	Nicotinate	Nicotinate
-C00568	4-Aminobenzoate	4-Aminobenzoate
-C00314	Pyridoxine	Pyridoxine
-C00255	Riboflavin	Riboflavin C17H20N4O6
-C00378	Thiamin	Thiamin
-C00115	Chloride	NULL
-C06266	Boron	NULL
-C00070	Copper	NULL
-C08219	Potassium iodide	NULL
-C00023	Iron	Fe2+ mitochondria
-C00034	Manganese	NULL
-C01330	Sodium	Sodium
-C00038	Zinc	NULL
-C00238	Potassium	Potassium
-C00009	Orthophosphate	Phosphate
-C06232	Molybdate	NULL
-C00305	Magnesium	NULL
-C08130	Calcium chloride	NULL
-C00106	Uracil	Uracil
-C00123	L-Leucine	L-Leucine
-C00267	alpha-D-Glucose	D-Glucose
-C00135	L-Histidine	L-Histidine
-C00001	H2O	H2O H2O
-C00080	H+	H+
+	Compound	Compound Name	iMM904
+0	C00014	NH3	Ammonium
+1	C00059	Sulfate	Sulfate
+2	C00120	Biotin	Biotin
+3	C00076	Calcium	NULL
+4	C00864	Pantothenate	(R)-Pantothenate
+5	C00504	Folic acid	NULL
+6	C00137	myo-Inositol	Myo-Inositol
+7	C00253	Nicotinate	Nicotinate
+8	C00568	4-Aminobenzoate	4-Aminobenzoate
+9	C00314	Pyridoxine	Pyridoxine
+10	C00255	Riboflavin	Riboflavin C17H20N4O6
+11	C00378	Thiamin	Thiamin
+12	C00115	Chloride	NULL
+13	C06266	Boron	NULL
+14	C00070	Copper	NULL
+15	C08219	Potassium iodide	NULL
+16	C00023	Iron	Fe2+ mitochondria
+17	C00034	Manganese	NULL
+18	C01330	Sodium	Sodium
+19	C00038	Zinc	NULL
+20	C00238	Potassium	Potassium
+21	C00009	Orthophosphate	Phosphate
+22	C06232	Molybdate	NULL
+23	C00305	Magnesium	NULL
+24	C08130	Calcium chloride	NULL
+25	C00106	Uracil	Uracil
+26	C00123	L-Leucine	L-Leucine
+27	C00267	alpha-D-Glucose	D-Glucose
+28	C00135	L-Histidine	L-Histidine
+29	C00001	H2O	H2O H2O
+30	C00080	H+	H+

@@ -1,20 +1,20 @@
-Compound ID	Compound Name	iMM904
-C00005	NADPH	Nicotinamide adenine dinucleotide phosphate - reduced
-C00004	NADH	Nicotinamide adenine dinucleotide - reduced
-C00016	FAD	Flavin adenine dinucleotide oxidized
-C00006	NADP+	Nicotinamide adenine dinucleotide phosphate
-C00003	NAD+	Nicotinamide adenine dinucleotide
-C00061	FMN	FMN C17H19N4O9P
-C00575	3*,5*-Cyclic AMP	CAMP C10H11N5O6P
-C00399	Ubiquinone	NULL
-C00137	myo-Inositol	Myo-Inositol
-C00194	Cobamide coenzyme	NULL
-C00032	Heme	Protoheme C34H30FeN4O4
-C00255	Riboflavin	Riboflavin C17H20N4O6
-C00346	Ethanolamine phosphate	Ethanolamine phosphate C2H7NO4P
-C00641	1,2-Diacyl-sn-glycerol	NULL
-C00448	trans,trans-Farnesyl diphosphate	Farnesyl diphosphate
-C00002	ATP	ATP C10H12N5O13P3
-C00008	ADP	ADP C10H12N5O10P2
-C00342	Thioredoxin	Reduced thioredoxin
-C00007	Oxygen	O2 O2
+	Compound ID	Compound Name	iMM904
+0	C00005	NADPH	Nicotinamide adenine dinucleotide phosphate - reduced
+1	C00004	NADH	Nicotinamide adenine dinucleotide - reduced
+2	C00016	FAD	Flavin adenine dinucleotide oxidized
+3	C00006	NADP+	Nicotinamide adenine dinucleotide phosphate
+4	C00003	NAD+	Nicotinamide adenine dinucleotide
+5	C00061	FMN	FMN C17H19N4O9P
+6	C00575	3*,5*-Cyclic AMP	CAMP C10H11N5O6P
+7	C00399	Ubiquinone	NULL
+8	C00137	myo-Inositol	Myo-Inositol
+9	C00194	Cobamide coenzyme	NULL
+10	C00032	Heme	Protoheme C34H30FeN4O4
+11	C00255	Riboflavin	Riboflavin C17H20N4O6
+12	C00346	Ethanolamine phosphate	Ethanolamine phosphate C2H7NO4P
+13	C00641	1,2-Diacyl-sn-glycerol	NULL
+14	C00448	trans,trans-Farnesyl diphosphate	Farnesyl diphosphate
+15	C00002	ATP	ATP C10H12N5O13P3
+16	C00008	ADP	ADP C10H12N5O10P2
+17	C00342	Thioredoxin	Reduced thioredoxin
+18	C00007	Oxygen	O2 O2
