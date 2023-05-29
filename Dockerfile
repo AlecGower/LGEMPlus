@@ -41,7 +41,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy other files over to working directory
 COPY src/ .
-RUN export $IPROVER_HOME="/usr/src/iprover"
+RUN export IPROVER_HOME="/usr/src/iprover"
 #RUN mkdir /usr/src/iprover
 #COPY --from=iproverBuilder ./iprover /usr/src/iprover
 
