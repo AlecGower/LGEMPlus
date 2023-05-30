@@ -200,3 +200,8 @@ template = "cnf(abduced_extra_compound_{:02d}, axiom, {} ).\n"
 with open(theory_root / "abduced_extra_compounds.p", "w") as fo:
     for i, s in enumerate(selected):
         fo.write(template.format(i, s[2:-1]))
+
+# Write gene list to file for easier deletant
+with open(theory_root / "gene_list.txt", "w") as fo:
+    for gene in lm.genes:
+        fo.write("{}\t{}\n".format(gene.orf, gene.name))
