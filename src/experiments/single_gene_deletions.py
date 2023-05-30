@@ -31,6 +31,7 @@ with open(results_root / "single_gene_deletions.txt", "w") as fo:
                 proof = subprocess.run(
                     [
                         "sh",
+                        "-c",
                         "./helpers/gene_knockout_simple.sh",
                         orf,
                         str(theory_root / "genes.p"),
