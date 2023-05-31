@@ -11,13 +11,11 @@ gen_time = datetime.utcnow()
 
 model = sys.argv[-1]
 
-params = dict(
-    model_xml="ModelFiles/{}.xml".format(model),
-    query_compounds="ModelFiles/essentialAber{}.txt".format(model),
-    ubiquitous_compounds="ModelFiles/ubiquitousAber{}.txt".format(model),
-    media_compounds="ModelFiles/ynbAber{}.txt".format(model),
-    media_name="ynb",
-)
+model_xml="ModelFiles/{}.xml".format(model)
+query_compounds="ModelFiles/essentialAber{}.txt".format(model)
+ubiquitous_compounds="ModelFiles/ubiquitousAber{}.txt".format(model)
+media_compounds="ModelFiles/ynbAber{}.txt".format(model)
+media_name="ynb"
 
 base_knocked_out = "HIS3 LEU2 LYS2 MET17 URA3".split(" ")
 
