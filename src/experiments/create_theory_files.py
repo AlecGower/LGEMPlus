@@ -9,24 +9,15 @@ from datetime import datetime
 
 gen_time = datetime.utcnow()
 
-# Set parameters
-model_xml = "ModelFiles/yeastGEM.xml"
-query_compounds = "ModelFiles/essentialAberyeastGEM.txt"
-ubiquitous_compounds = "ModelFiles/ubiquitousAberyeastGEM.txt"
-media_compounds = "ModelFiles/ynbAberyeastGEM.txt"
-media_name = "ynb"
+model = sys.argv[-1]
 
-model_xml = "ModelFiles/iMM904.xml"
-query_compounds = "ModelFiles/essentialAberiMM904.txt"
-ubiquitous_compounds = "ModelFiles/ubiquitousAberiMM904.txt"
-media_compounds = "ModelFiles/ynbAberiMM904.txt"
-media_name = "ynb"
-
-model_xml = "ModelFiles/iND750.xml"
-query_compounds = "ModelFiles/essentialAberiND750.txt"
-ubiquitous_compounds = "ModelFiles/ubiquitousAberiND750.txt"
-media_compounds = "ModelFiles/ynbAberiND750.txt"
-media_name = "ynb"
+params = dict(
+    model_xml="ModelFiles/{}.xml".format(model),
+    query_compounds="ModelFiles/essentialAber{}.txt".format(model),
+    ubiquitous_compounds="ModelFiles/ubiquitousAber{}.txt".format(model),
+    media_compounds="ModelFiles/ynbAber{}.txt".format(model),
+    media_name="ynb",
+)
 
 base_knocked_out = "HIS3 LEU2 LYS2 MET17 URA3".split(" ")
 
