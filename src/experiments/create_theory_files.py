@@ -1,5 +1,6 @@
 # Import packages
 import os, sys
+from typing import Iterable
 
 sys.path.append(os.getcwd())
 from genesis.io import logical_model_from_sbml
@@ -11,11 +12,11 @@ gen_time = datetime.utcnow()
 
 model = sys.argv[-1]
 
-model_xml="ModelFiles/{}.xml".format(model)
-query_compounds="ModelFiles/essentialAber{}.txt".format(model)
-ubiquitous_compounds="ModelFiles/ubiquitousAber{}.txt".format(model)
-media_compounds="ModelFiles/ynbAber{}.txt".format(model)
-media_name="ynb"
+model_xml = "ModelFiles/{}.xml".format(model)
+query_compounds = "ModelFiles/essentialAber{}.txt".format(model)
+ubiquitous_compounds = "ModelFiles/ubiquitousAber{}.txt".format(model)
+media_compounds = "ModelFiles/ynbAber{}.txt".format(model)
+media_name = "ynb"
 
 base_knocked_out = "HIS3 LEU2 LYS2 MET17 URA3".split(" ")
 
@@ -32,36 +33,24 @@ base_knocked_out = [
 ]
 
 # Load lists of query and ubiquitous compounds
-compounds = {"query": [], "ubiquitous": [], "media": []}
-with open(query_compounds, "r") as fi:
-    for (lnno, row) in enumerate(fi):
-        if lnno > 0:
-            try:
-                compound = row.split("\t")[3].rstrip()
-            except IndexError:
-                continue
-            if compound != "":
-                compounds["query"].append(compound)
+def read_compounds(file: os.PathLike) -> list:
+    compound_list = []
+    with open(file, "r") as fi:
+        for (lnno, row) in enumerate(fi):
+            if lnno > 0:
+                try:
+                    compound = row.split("\t")[3].rstrip()
+                except IndexError:
+                    continue
+                if compound != "":
+                    compound_list.append(compound)
+    return compound_list
 
-with open(ubiquitous_compounds, "r") as fi:
-    for (lnno, row) in enumerate(fi):
-        if lnno > 0:
-            try:
-                compound = row.split("\t")[3].rstrip()
-            except IndexError:
-                continue
-            if compound != "":
-                compounds["ubiquitous"].append(compound)
 
-with open(media_compounds, "r") as fi:
-    for (lnno, row) in enumerate(fi):
-        if lnno > 0:
-            try:
-                compound = row.split("\t")[3].rstrip()
-            except IndexError:
-                continue
-            if compound != "":
-                compounds["media"].append(compound)
+compounds = {
+    ky: read_compounds(eval(ky + "_compounds"))
+    for ky in ["query", "ubiquitous", "media"]
+}
 
 # Create theories directory with following structure
 # theories
@@ -171,7 +160,8 @@ with open(theory_root / "query.p", "w") as fo:
 stream = os.popen(
     "|".join(
         [
-            '$IPROVER_HOME"/iproveropt" $(ls {}/*.p)'.format(theory_root),
+            # '$IPROVER_HOME"/iproveropt" $(ls {}/*.p)'.format(theory_root),
+            '/Users/alexander/workspace/iprover/iproveropt $(ls {}/*.p)'.format(theory_root),
             'grep "{~("',
             'grep -v "rxn("',
             'grep -v "enz("',
