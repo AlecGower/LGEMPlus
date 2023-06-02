@@ -26,18 +26,14 @@ ap.add_argument(
 arguments = ap.parse_args()
 
 ess = pd.read_csv("data/sgd_ess.csv", index_col=0)
-res = (
-    pd.read_csv(arguments.results_file, delimiter="\t", names=["orf", "name", "growth"])
-    .set_index("orf")
-    .drop(columns="name")
-)
+res = pd.read_csv(arguments.results_file, delimiter="\t").set_index("orf")
 
 if arguments.fba:
     print("Results:", len(res))
     preds = res.join(ess).loc[:, ["inviable", "growth"]].fillna(0)
     # # Changed because of train test split
     # preds = res.join(ess).loc[:, ["inviable", "growth"]].dropna()
-    preds.growth = preds.growth < arguments.fba_threshold
+    preds.growth = preds.growth > arguments.fba_threshold
     print("Preds:", len(preds))
 else:
     print("Results:", len(res))
@@ -46,58 +42,58 @@ else:
     print("Preds:", len(preds))
 
 majority = copy(preds)
-majority["growth"] = 0
+majority["growth"] = 1
 
 print("Majority class ('viable') classifier")
 
-print(classification_report(majority.inviable, majority.growth, zero_division=0))
+print(classification_report(1 - majority.inviable, majority.growth, zero_division=0))
 
-cm = confusion_matrix(majority.inviable, majority.growth)
+cm = confusion_matrix(1 - majority.inviable, majority.growth)
 # print("Confusion matrix:\n\r", cm)
 print(
     pd.DataFrame(
         cm,
-        columns=pd.MultiIndex.from_product([["Predicted"], ["G", "NG"]]),
-        index=pd.MultiIndex.from_product([["Actual"], ["G", "NG"]]),
+        columns=pd.MultiIndex.from_product([["Predicted"], ["NG", "G"]]),
+        index=pd.MultiIndex.from_product([["Actual"], ["NG", "G"]]),
     ).to_markdown()
 )
 
-f1 = f1_score(majority.inviable, majority.growth, zero_division=0)
+f1 = f1_score(1 - majority.inviable, majority.growth, zero_division=0)
 print("\nF1 score:", f1)
 
-jaccard = jaccard_score(majority.inviable, majority.growth,)
+jaccard = jaccard_score(1 - majority.inviable, majority.growth,)
 print("Jaccard score: {:.3f}".format(jaccard))
 
 print("\nOur classifier")
 
-print(classification_report(preds.inviable, preds.growth,))
+print(classification_report(1 - preds.inviable, preds.growth,))
 
-cm = confusion_matrix(preds.inviable, preds.growth,)
+cm = confusion_matrix(1 - preds.inviable, preds.growth,)
 # print("Confusion matrix:\n\r", cm)
 print(
     pd.DataFrame(
         cm,
-        columns=pd.MultiIndex.from_product([["Predicted"], ["G", "NG"]]),
-        index=pd.MultiIndex.from_product([["Actual"], ["G", "NG"]]),
+        columns=pd.MultiIndex.from_product([["Predicted"], ["NG", "G"]]),
+        index=pd.MultiIndex.from_product([["Actual"], ["NG", "G"]]),
     ).to_markdown()
 )
 
-f1 = f1_score(preds.inviable, preds.growth,)
+f1 = f1_score(1 - preds.inviable, preds.growth,)
 print("\nF1 score: {:.3f}".format(f1))
 
-jaccard = jaccard_score(preds.inviable, preds.growth,)
+jaccard = jaccard_score(1 - preds.inviable, preds.growth,)
 print("Jaccard score: {:.3f}".format(jaccard))
 
-ngg = preds[(preds.inviable == 0) & (preds.growth == 1)].join(
+ngg = preds[(preds.inviable == 0) & (preds.growth == 0)].join(
     ess.loc[:, ["name", "full_name"]], how="left", rsuffix=".ess"
 )
-ngng = preds[(preds.inviable == 1) & (preds.growth == 1)].join(
+ngng = preds[(preds.inviable == 1) & (preds.growth == 0)].join(
     ess.loc[:, ["name", "full_name"]], how="left", rsuffix=".ess"
 )
-gng = preds[(preds.inviable == 1) & (preds.growth == 0)].join(
+gng = preds[(preds.inviable == 1) & (preds.growth == 1)].join(
     ess.loc[:, ["name", "full_name"]], how="left", rsuffix=".ess"
 )
-gg = preds[(preds.inviable == 0) & (preds.growth == 0)].join(
+gg = preds[(preds.inviable == 0) & (preds.growth == 1)].join(
     ess.loc[:, ["name", "full_name"]], how="left", rsuffix=".ess"
 )
 

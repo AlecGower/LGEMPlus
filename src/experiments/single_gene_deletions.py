@@ -94,6 +94,8 @@ if __name__ == "__main__":
 
 ## Output
 with open(results_root / "single_gene_deletions.txt", "w") as fo:
-    print("orf", "name", "essential", sep="\t", file=fo)
+    # print("orf", "name", "essential", sep="\t", file=fo)
+    print("orf", "name", "growth", sep="\t", file=fo)
     for orf, name, essential in essentiality_results:
-        print(orf, name, essential, sep="\t", file=fo)
+        # print(orf, name, essential, sep="\t", file=fo)
+        print(orf, name, 1 - int(essential), sep="\t", file=fo)
