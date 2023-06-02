@@ -18,8 +18,13 @@ results_root[results_root.index("theories")] = "results"
 results_root = Path("/".join(results_root))
 results_root.mkdir(parents=True, exist_ok=True)
 
-stream = os.popen('grep "Base deletants:" {}'.format(theory_root / "info.txt"))
-base_deletants = stream.read()[len("Base deletants:") :].strip().split(" ")
+with open(theory_root / "info.txt") as fi:
+    for ln in fi:
+        if ln.startswith("Base deletants:"):
+            base_deletants = ln[len("Base deletants:") :].strip().split(" ")
+        elif ln.startswith("Base GEM ID:"):
+            model_id = ln[len("Base GEM ID:") :].strip()
+
 genes = []
 with open(theory_root / "gene_list.txt") as fi:
     for ln in fi:
@@ -65,13 +70,15 @@ essentiality_results = []
 essentiality_map = partial(calculate_gene_essentiality, theory_root=theory_root)
 
 ## Credit for this function to leimao@github
-def run_imap_multiprocessing(func, argument_list, num_processes):
+def run_imap_multiprocessing(func, argument_list, num_processes, **tqdm_kwargs):
 
     with mp.Pool(processes=num_processes) as pool:
 
         result_list_tqdm = []
         for result in tqdm(
-            pool.imap(func=func, iterable=argument_list), total=len(argument_list)
+            pool.imap(func=func, iterable=argument_list),
+            total=len(argument_list),
+            **tqdm_kwargs
         ):
             result_list_tqdm.append(result)
 
@@ -79,8 +86,10 @@ def run_imap_multiprocessing(func, argument_list, num_processes):
 
 
 if __name__ == "__main__":
-    essentiality_results = run_imap_multiprocessing(essentiality_map, genes, mp.cpu_count())
-        
+    essentiality_results = run_imap_multiprocessing(
+        essentiality_map, genes, mp.cpu_count(), desc=model_id
+    )
+
 # essentiality_results = # list of tuples '(orf, name, essential)'
 
 ## Output
