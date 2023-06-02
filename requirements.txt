@@ -4,6 +4,7 @@ cobra
 ipykernel
 beautifulsoup4
 pandas
+tabulate
 matplotlib
 scikit-learn
 scikit-learn-intelex
