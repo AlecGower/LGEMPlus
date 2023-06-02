@@ -1,11 +1,11 @@
 #!/bin/bash
-printf "Creating theory files for ... yeastGEM" &&
+printf "Creating theory files for yeastGEM... " &&
 	python3 experiments/create_theory_files.py "yeastGEM" &&
 	print "Done!"
-printf "Creating theory files for ... iMM904" &&
+printf "Creating theory files for iMM904... " &&
 	python3 experiments/create_theory_files.py "iMM904" &&
 	print "Done!"
-printf "Creating theory files for ... iND750" &&
+printf "Creating theory files for iND750... " &&
 	python3 experiments/create_theory_files.py "iND750" &&
 	print "Done!"
 
