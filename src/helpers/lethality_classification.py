@@ -32,14 +32,14 @@ res = pd.read_csv(arguments.results_file, delimiter="\t").set_index("orf")
 
 if arguments.fba:
     print("Results:", len(res))
-    preds = res.join(ess, how="inner").loc[:, ["inviable", "growth"]].fillna(0)
+    preds = res.join(ess, how="inner").loc[:, ["name", "inviable", "growth"]].fillna(0)
     # # Changed because of train test split
     # preds = res.join(ess).loc[:, ["inviable", "growth"]].dropna()
     preds.growth = preds.growth > arguments.fba_threshold
     print("Preds:", len(preds))
 else:
     print("Results:", len(res))
-    preds = res.join(ess, how="inner").loc[:, ["inviable", "growth"]].fillna(0)
+    preds = res.join(ess, how="inner").loc[:, ["name", "inviable", "growth"]].fillna(0)
     # preds = res.join(ess).loc[:, ["inviable", "growth"]].dropna()
     print("Preds:", len(preds))
 
