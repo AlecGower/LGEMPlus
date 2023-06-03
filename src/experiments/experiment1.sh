@@ -12,7 +12,7 @@ printf "Creating theory files for iND750... " &&
 for model in $(ls experiments/theories/); do
 	latest=$model/$(ls experiments/theories/$model | tail -n 1)
 	python3 helpers/single_gene_deletions.py \
-		experiments/theories/$latest/single_gene_deletions.txt
+		experiments/theories/$latest
 	python3 helpers/lethality_classification.py \
 		experiments/results/$latest/single_gene_deletions.txt \
         >experiments/results/$latest/single_gene_deletions_evaluation.txt
