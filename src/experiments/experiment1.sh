@@ -1,15 +1,19 @@
 #!/bin/bash
 printf "Creating theory files for yeastGEM... " &&
-	python3 experiments/create_theory_files.py "yeastGEM" &&
-	print "Done!"
+	python3 helpers/create_theory_files.py "yeastGEM" &&
+	printf "Done!\n"
 printf "Creating theory files for iMM904... " &&
-	python3 experiments/create_theory_files.py "iMM904" &&
-	print "Done!"
+	python3 helpers/create_theory_files.py "iMM904" &&
+	printf "Done!\n"
 printf "Creating theory files for iND750... " &&
-	python3 experiments/create_theory_files.py "iND750" &&
-	print "Done!"
+	python3 helpers/create_theory_files.py "iND750" &&
+	printf "Done!\n"
 
 for model in $(ls experiments/theories/); do
-	python3 experiments/single_gene_deletions.py \
-		experiments/theories/$model/$(ls experiments/theories/$model | tail -n 1)
+	latest=$model/$(ls experiments/theories/$model | tail -n 1)
+	python3 helpers/single_gene_deletions.py \
+		experiments/theories/$latest/single_gene_deletions.txt
+	python3 helpers/lethality_classification.py \
+		experiments/results/$latest/single_gene_deletions.txt \
+        >experiments/results/$latest/single_gene_deletions_evaluation.txt
 done
