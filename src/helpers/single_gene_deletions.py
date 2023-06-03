@@ -1,18 +1,27 @@
 # Import packages
-import os, sys, subprocess
+import os, subprocess
+from argparse import ArgumentParser
+from pathlib import Path
 import multiprocessing as mp
 from functools import partial
 
-sys.path.append(os.getcwd())
+ap = ArgumentParser(
+    description="Conducts single-gene deletions using iProver given a directory containing theory files."
+)
+ap.add_argument("theory_root")
+ap.add_argument(
+    "-g",
+    "--gene_list",
+    dest="gene_list",
+    default="gene_list.txt",
+    help="Path relative to theory directory that contains list"
+    + " of genes to be evaluated. Default = 'gene_list.txt'.",
+)
 
-from tqdm.auto import tqdm
+arguments = ap.parse_args()
+theory_root = Path(arguments.theory_root)
 
-from genesis.io import logical_model_from_sbml
-from genesis.logicalmet import LogicalClause, LogicalLiteral
-from pathlib import Path
-from datetime import datetime
-
-theory_root = Path(sys.argv[-1])
+# Create directory for results
 results_root = list(theory_root.parts)
 results_root[results_root.index("theories")] = "results"
 results_root = Path("/".join(results_root))
@@ -26,7 +35,7 @@ with open(theory_root / "info.txt") as fi:
             model_id = ln[len("Base GEM ID:") :].strip()
 
 genes = []
-with open(theory_root / "gene_list.txt") as fi:
+with open(theory_root / ap.arguments.gene_list) as fi:
     for ln in fi:
         orf, name = ln.rstrip().split("\t")
         if orf not in base_deletants and name not in base_deletants:
