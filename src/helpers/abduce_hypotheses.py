@@ -10,13 +10,14 @@ def abduce_hypotheses(
 ):
     theory_directory = Path(theory_directory)
 
-    deletion_command = [
-        "sed",
-        '"/{0}/ s/gn(g_/~gn(g_/;/{0}/ s/_in_genome/_deletion/"'.format(
-            "|".join(knockouts)
-        ),
-        str(theory_directory / "genes.p"),
-    ]
+    if knockouts is not None:
+        deletion_command = [
+            "sed",
+            '"/{0}/ s/gn(g_/~gn(g_/;/{0}/ s/_in_genome/_deletion/"'.format(
+                "|".join(knockouts)
+            ),
+            str(theory_directory / "genes.p"),
+        ]
     theory_command = [
         "cat",
         "-",
@@ -42,20 +43,15 @@ def abduce_hypotheses(
         '"({})\("'.format("|".join(excluded_predicates)),
     ]
 
-    filtered = os.popen(
-        "|".join(
-            [
-                " ".join(command)
-                for command in [
-                    deletion_command,
-                    theory_command,
-                    proof_command,
-                    hypotheses_command,
-                    filtered_command,
-                ]
-            ]
-        )
+    if knockouts is not None:
+        commands = [deletion_command]
+    else:
+        commands = []
+    commands.extend(
+        [theory_command, proof_command, hypotheses_command, filtered_command,]
     )
+
+    filtered = os.popen("|".join([" ".join(command) for command in commands]))
     hypotheses = [
         h[h.find("{") + 1 : h.find("}")].split(";") for h in filtered.readlines()
     ]
