@@ -1,0 +1,1 @@
+perl -p0e "s/\n(    )+//smg" $1|sed "s/ //g"
