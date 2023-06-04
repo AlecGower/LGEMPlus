@@ -10,7 +10,7 @@ alias iprover_dot="iprover --schedule none --preprocessing_flag false --instanti
 echo >&2 "Starting abduction for "$1"."
 
 output_directory=$(dirname $2|sed "s/theories/results/")/ngg_hypotheses
-mkdir $output_directory
+mkdir -p $output_directory
 
 ##
 # Run knockout
