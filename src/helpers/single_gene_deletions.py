@@ -23,7 +23,7 @@ arguments = ap.parse_args()
 theory_root = Path(arguments.theory_root)
 try:
     gene_list = Path(arguments.gene_list)
-    with open(theory_root) as fi:
+    with open(gene_list) as fi:
         pass
 except FileNotFoundError:
     gene_list = theory_root / arguments.gene_list
