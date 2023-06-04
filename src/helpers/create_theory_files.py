@@ -5,6 +5,7 @@ from typing import Iterable
 sys.path.append(os.getcwd())
 from genesis.io import logical_model_from_sbml
 from genesis.logicalmet import LogicalClause, LogicalLiteral
+from helpers.abduce_hypotheses import abduce_hypotheses
 from pathlib import Path
 from datetime import datetime
 
@@ -157,19 +158,8 @@ with open(theory_root / "query.p", "w") as fo:
     fo.write("{}".format(query))
 
 # Abduce extra
-stream = os.popen(
-    "|".join(
-        [
-            '$IPROVER_HOME"/iproveropt" $(ls {}/*.p)'.format(theory_root),
-            'grep "{~("',
-            'grep -v "rxn("',
-            'grep -v "enz("',
-            'grep -v "pro("',
-            'grep -v "gn("',
-        ]
-    )
-)
-hypotheses = [h[h.find("{") + 1 : h.find("}")].split(";") for h in stream.readlines()]
+hypotheses = abduce_hypotheses(theory_root, excluded_predicates=['rxn','pro','gn','enz'])
+
 # Choose the hypothesis with the lowest number of additional compounds
 selected = sorted(hypotheses, key=lambda h: len(h))[0]
 
