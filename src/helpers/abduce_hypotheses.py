@@ -9,6 +9,17 @@ def abduce_hypotheses(
     knockouts: Optional[Iterable[str]] = None,
 ):
     theory_directory = Path(theory_directory)
+    theory_files = [
+        "reactions.p",
+        "media_compounds.p",
+        "ubiquitous_compounds.p",
+        "query.p",
+    ]
+    try:
+        with open(theory_directory / "abduced_extra_compounds.p", "r") as fi:
+            theory_files.append("abduced_extra_compounds.p")
+    except FileNotFoundError:
+        pass
 
     if knockouts is not None:
         deletion_command = [
@@ -18,19 +29,12 @@ def abduce_hypotheses(
             ),
             str(theory_directory / "genes.p"),
         ]
+    else:
+        deletion_command = ["cat", str(theory_directory / "genes.p")]
     theory_command = [
         "cat",
         "-",
-        *[
-            str(theory_directory / fp)
-            for fp in [
-                "reactions.p",
-                "abduced_extra_compounds.p",
-                "media_compounds.p",
-                "ubiquitous_compounds.p",
-                "query.p",
-            ]
-        ],
+        *[str(theory_directory / fp) for fp in theory_files],
     ]
     proof_command = ['$IPROVER_HOME"/iproveropt"', "--stdin", "true"]
     hypotheses_command = [
@@ -43,13 +47,13 @@ def abduce_hypotheses(
         '"({})\("'.format("|".join(excluded_predicates)),
     ]
 
-    if knockouts is not None:
-        commands = [deletion_command]
-    else:
-        commands = []
-    commands.extend(
-        [theory_command, proof_command, hypotheses_command, filtered_command,]
-    )
+    commands = [
+        deletion_command,
+        theory_command,
+        proof_command,
+        hypotheses_command,
+        filtered_command,
+    ]
 
     filtered = os.popen("|".join([" ".join(command) for command in commands]))
     hypotheses = [
