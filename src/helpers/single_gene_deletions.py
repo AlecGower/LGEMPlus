@@ -28,11 +28,11 @@ try:
 except FileNotFoundError:
     gene_list = theory_root / arguments.gene_list
 
-# Create directory for results
-results_root = list(theory_root.parts)
-results_root[results_root.index("theories")] = "results"
-results_root = Path("/".join(results_root))
-results_root.mkdir(parents=True, exist_ok=True)
+# # Create directory for results
+# results_root = list(theory_root.parts)
+# results_root[results_root.index("theories")] = "results"
+# results_root = Path("/".join(results_root))
+# results_root.mkdir(parents=True, exist_ok=True)
 
 with open(theory_root / "info.txt") as fi:
     for ln in fi:
@@ -109,9 +109,6 @@ if __name__ == "__main__":
 # essentiality_results = # list of tuples '(orf, name, essential)'
 
 ## Output
-with open(results_root / "single_gene_deletions.txt", "w") as fo:
-    # print("orf", "name", "essential", sep="\t", file=fo)
-    print("orf", "name", "growth", sep="\t", file=fo)
-    for orf, name, essential in essentiality_results:
-        # print(orf, name, essential, sep="\t", file=fo)
-        print(orf, name, 1 - int(essential), sep="\t", file=fo)
+print("orf", "name", "growth", sep="\t")
+for orf, name, essential in essentiality_results:
+    print(orf, name, 1 - int(essential), sep="\t")

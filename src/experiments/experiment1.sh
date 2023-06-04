@@ -11,9 +11,11 @@ printf "Creating theory files for iND750... " &&
 
 for model in $(ls experiments/theories/); do
 	latest=$model/$(ls experiments/theories/$model | tail -n 1)
+	mkdir -p experiments/results/$latest
 	python3 helpers/single_gene_deletions.py \
-		experiments/theories/$latest
+		experiments/theories/$latest \
+		>experiments/results/$latest/single_gene_deletions.txt
 	python3 helpers/lethality_classification.py \
 		experiments/results/$latest/single_gene_deletions.txt \
-        >experiments/results/$latest/single_gene_deletions_evaluation.txt
+		>experiments/results/$latest/single_gene_deletions_evaluation.txt
 done
