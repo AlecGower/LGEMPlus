@@ -1,0 +1,32 @@
+	Compound	Compound Name	iFF708
+0	C00014	NH3	NH3_H3N
+1	C00059	Sulfate	sulfate_H2O4S
+2	C00120	Biotin	biotin_C10H16N2O3S
+3	C00076	Calcium	
+4	C00864	Pantothenate	(R)-pantothenate_C9H17NO5
+5	C00504	Folic acid	
+6	C00137	myo-Inositol	myo-inositol_C6H12O6
+7	C00253	Nicotinate	nicotinate_C6H5NO2
+8	C00568	4-Aminobenzoate	4-aminobenzoate_C7H7NO2
+9	C00314	Pyridoxine	pyridoxine_C8H11NO3
+10	C00255	Riboflavin	riboflavin_C17H20N4O6
+11	C00378	Thiamin	thiamin_C12H17N4OS
+12	C00115	Chloride	
+13	C06266	Boron	
+14	C00070	Copper	
+15	C08219	Potassium iodide	
+16	C00023	Iron	Fe2+ mitochondria
+17	C00034	Manganese	
+18	C01330	Sodium	sodium_
+19	C00038	Zinc	
+20	C00238	Potassium	potassium_
+21	C00009	Orthophosphate	phosphate_H3O4P
+22	C06232	Molybdate	
+23	C00305	Magnesium	
+24	C08130	Calcium chloride	
+25	C00106	Uracil	uracil_C4H4N2O2
+26	C00123	L-Leucine	L-leucine_C6H13NO2
+27	C00267	alpha-D-Glucose	alpha-D-glucose_C6H12O6
+28	C00135	L-Histidine	L-histidine_C6H9N3O2
+29	C00001	H2O	
+30	C00080	H+	H(+)_
