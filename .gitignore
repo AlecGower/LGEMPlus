@@ -169,3 +169,6 @@ src/experiments/evaluate_hypotheses.py
 # Outputs
 *.out
 *.log
+
+# Extra Model Files
+src/ModelFiles/sbml_models
