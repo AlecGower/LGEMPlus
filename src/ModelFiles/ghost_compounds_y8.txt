@@ -1,3 +1,0 @@
-phosphatidate [mitochondrion]
-1,2-diacyl-sn-glycerol 3-phosphate [endoplasmic reticulum]
-alpha-D-Glucose 6-phosphate [cytoplasm]

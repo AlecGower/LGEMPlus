@@ -1,7 +1,0 @@
-"SBO:0000176","biochemical reaction",""
-"SBO:0000395","encapsulating process",""
-"SBO:0000627","exchange reaction","pseudoreaction"
-"SBO:0000629","biomass production","encapsulating process"
-"SBO:0000630","ATP maintenance","encapsulating process"
-"SBO:0000632","sink reaction","pseudoreaction"
-"SBO:0000655","transport reaction",""

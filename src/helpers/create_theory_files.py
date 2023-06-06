@@ -14,9 +14,9 @@ gen_time = datetime.utcnow()
 model = sys.argv[-1]
 
 model_xml = "ModelFiles/{}.xml".format(model)
-query_compounds = "ModelFiles/essentialAber{}.txt".format(model)
-ubiquitous_compounds = "ModelFiles/ubiquitousAber{}.txt".format(model)
-media_compounds = "ModelFiles/ynbAber{}.txt".format(model)
+query_compounds = "ModelFiles/essential-compounds-{}.tsv".format(model)
+ubiquitous_compounds = "ModelFiles/ubiquitous-compounds-{}.tsv".format(model)
+media_compounds = "ModelFiles/ynb-compounds-{}.tsv".format(model)
 media_name = "ynb"
 
 # base_knocked_out = "HIS3 LEU2 LYS2 MET17 URA3".split(" ")
