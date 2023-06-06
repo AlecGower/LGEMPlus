@@ -50,13 +50,9 @@ def trim_reaction(
         or rxn in ignore
     ):
         if rid in boundary_ids and verbose:
-            print(
-                "{:<6}: BOUNDARY REACTION {}.".format(rid, rxn.name), file=sys.stderr
-            )
+            print("{:<6}: BOUNDARY REACTION {}.".format(rid, rxn.name), file=sys.stderr)
         if verbose:
-            print(
-                "{:<6}: Ignoring reaction {}.".format(rid, rxn.name), file=sys.stderr
-            )
+            print("{:<6}: Ignoring reaction {}.".format(rid, rxn.name), file=sys.stderr)
         pass
     else:
         if verbose:
@@ -108,7 +104,7 @@ def promote_reaction(
                     file=sys.stderr,
                 )
             rxn.lower_bound = -1000.0
-            rxn.upper_bound = (-1 * thresh)
+            rxn.upper_bound = -1 * thresh
         else:
             if verbose:
                 print(
@@ -271,7 +267,10 @@ fba_model = read_sbml_model(model_fp)
 print("Solving reference solution({}) ...".format(reactions_fp), file=sys.stderr)
 with fba_model:
     for gn in genes_ko:
-        fba_model.genes.get_by_id(gn).knock_out()
+        try:
+            fba_model.genes.get_by_id(gn).knock_out()
+        except KeyError:
+            [g for g in fba_model.genes if g.name.upper() == gn.upper()][0].knock_out()
     reference_solution = fba_model.optimize()
     # print(reference_solution.status, reference_solution.objective_value)
 print(
@@ -351,7 +350,10 @@ with open(reactions_fp) as fi:
 # print("Solving FBA({}) ...".format(reactions_fp))
 with fba_model:
     for gn in genes_ko:
-        fba_model.genes.get_by_id(gn).knock_out()
+        try:
+            fba_model.genes.get_by_id(gn).knock_out()
+        except KeyError:
+            [g for g in fba_model.genes if g.name.upper() == gn.upper()][0].knock_out()
     soln = reactions_list_to_solution(
         model=fba_model,
         mode=mode,
@@ -362,7 +364,27 @@ with fba_model:
         verbose=verbose_output,
     )
 
-print("RESULT", reactions_fp, soln.status, soln.objective_value, genes_ko)
+print("RESULT_WITH_KO", reactions_fp, soln.status, soln.objective_value, genes_ko)
+
+genes_ko = []
+
+with fba_model:
+    for gn in genes_ko:
+        try:
+            fba_model.genes.get_by_id(gn).knock_out()
+        except KeyError:
+            [g for g in fba_model.genes if g.name.upper() == gn.upper()][0].knock_out()
+    soln = reactions_list_to_solution(
+        model=fba_model,
+        mode=mode,
+        thresh=thresh,
+        reaction_ids=reactions,
+        boundary_ids=[r.id for r in fba_model.boundary],
+        ignore=ignore_rxns,
+        verbose=verbose_output,
+    )
+
+print("RESULT_WITHOUT_KO", reactions_fp, soln.status, soln.objective_value, genes_ko)
 # print(np.mean(soln.fluxes.abs() == thresh))
 # print(soln.fluxes.abs().head())
 
@@ -403,6 +425,9 @@ print("RESULT", reactions_fp, soln.status, soln.objective_value, genes_ko)
 #     sep="\n"
 # )
 
-fluxes = pd.concat([reference_solution.fluxes.rename("reference"), soln.fluxes.rename("result")], axis=1).join(pd.DataFrame(reactions, columns=['id','reversed']).set_index('id'), how='left')
-fluxes['absDiff'] = (fluxes.reference - fluxes.result).abs()
+fluxes = pd.concat(
+    [reference_solution.fluxes.rename("reference"), soln.fluxes.rename("result")],
+    axis=1,
+).join(pd.DataFrame(reactions, columns=["id", "reversed"]).set_index("id"), how="left")
+fluxes["absDiff"] = (fluxes.reference - fluxes.result).abs()
 print("Sum of absolute differences between fluxes: {}".format(fluxes.absDiff.sum()))

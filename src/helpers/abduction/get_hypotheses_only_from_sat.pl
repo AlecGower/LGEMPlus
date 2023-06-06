@@ -16,7 +16,7 @@ my $reverse = "";
 my $additionalClauseCount = 0;
 my $additionalClausesString;
 
-my %skipPredicates = ("p" => "", "e" => "");
+# my %skipPredicates = ("p" => "", "e" => "");
 
 open(my $fi,  "<",  $ARGV[0])  or die "Can't open input file: $!";
 $hypothesis_count = 0;
@@ -39,7 +39,7 @@ while (<$fi>) {     # assigns each line in turn to $_
             my $component = $val =~ s/^~//r;
             push(@hypParts, $val);
             # $additionalClausesString .= sprintf "cnf(%s_component_%03d,axiom,%s).\n", $hypothesis, $additionalClauseCount, $component;
-            $additionalClausesString .= sprintf "%d cnf(%s_component_%03d,axiom,%s).\n", $hypothesis_count, $hypothesis, $additionalClauseCount, $component;
+            $additionalClausesString .= sprintf "%d %d cnf(%s_component_%03d,axiom,%s).\n", $hypothesis_count, $additionalClauseCount, $hypothesis, $additionalClauseCount, $component;
         };
         # $hypothesis = "(" . join("|", @hypParts) . ")";
         # print($hypothesis, "\n  ");
