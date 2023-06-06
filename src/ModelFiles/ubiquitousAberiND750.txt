@@ -6,7 +6,7 @@
 4	C00003	NAD+	Nicotinamide adenine dinucleotide
 5	C00061	FMN	FMN C17H19N4O9P
 6	C00575	3*,5*-Cyclic AMP	CAMP C10H11N5O6P
-7	C00399	Ubiquinone	
+7	C00399	Ubiquinone	Ubiquinone 6 C39H58O4
 8	C00137	myo-Inositol	Myo-Inositol
 9	C00194	Cobamide coenzyme	
 10	C00032	Heme	Protoheme C34H30FeN4O4
