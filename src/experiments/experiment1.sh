@@ -5,8 +5,8 @@ printf "Creating theory files for yeastGEM... " &&
 printf "Creating theory files for iMM904... " &&
 	python3 helpers/create_theory_files.py "iMM904" &&
 	printf "Done!\n"
-printf "Creating theory files for iND750... " &&
-	python3 helpers/create_theory_files.py "iND750" &&
+printf "Creating theory files for iFF708... " &&
+	python3 helpers/create_theory_files.py "iFF708" &&
 	printf "Done!\n"
 
 for model in $(ls experiments/theories/); do
