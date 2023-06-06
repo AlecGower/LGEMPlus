@@ -18,6 +18,8 @@ for model in $(ls experiments/theories/); do
 				experiments/theories/$latest/media_compounds.p \
 				experiments/theories/$latest/ubiquitous_compounds.p \
 				experiments/theories/$latest/abduced_extra_compounds.p \
-				experiments/theories/$latest/query.p
+				experiments/theories/$latest/query.p \
+		1>experiments/results/$latest/"abduction.out" \
+			2>experiments/results/$latest/"abduction.log"
 	fi
 done
