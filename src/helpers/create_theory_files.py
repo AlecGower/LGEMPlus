@@ -19,7 +19,8 @@ ubiquitous_compounds = "ModelFiles/ubiquitousAber{}.txt".format(model)
 media_compounds = "ModelFiles/ynbAber{}.txt".format(model)
 media_name = "ynb"
 
-base_knocked_out = "HIS3 LEU2 LYS2 MET17 URA3".split(" ")
+# base_knocked_out = "HIS3 LEU2 LYS2 MET17 URA3".split(" ")
+base_knocked_out = "YOR202W YCL018W YBR115C YLR303W YEL021W".split(" ")
 
 GENE_ACTIVATIONS = True
 REVERSE_REACTIONS = True
@@ -30,7 +31,13 @@ lm = logical_model_from_sbml(model_file=model_xml, include_reverse=REVERSE_REACT
 base_knocked_out = [
     g
     for g in lm.genes
-    if g.name.upper() in base_knocked_out or g.orf.upper() in base_knocked_out
+    if any(
+        [
+            g.name.upper() in base_knocked_out,
+            g.orf.upper() in base_knocked_out,
+            any([g.orf.endswith(nm) for nm in base_knocked_out]),
+        ]
+    )
 ]
 
 # Load lists of query and ubiquitous compounds
@@ -158,7 +165,9 @@ with open(theory_root / "query.p", "w") as fo:
     fo.write("{}".format(query))
 
 # Abduce extra
-hypotheses = abduce_hypotheses(theory_root, excluded_predicates=['rxn','pro','gn','enz'])
+hypotheses = abduce_hypotheses(
+    theory_root, excluded_predicates=["rxn", "pro", "gn", "enz"]
+)
 
 # Choose the hypothesis with the lowest number of additional compounds
 selected = sorted(hypotheses, key=lambda h: len(h))[0]
