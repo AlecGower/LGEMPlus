@@ -108,3 +108,26 @@ for suffix in ["ngg", "gng", "ngng", "gg"]:
     ) as fo:
         for g, row in df.sort_values("name").iterrows():
             print(g, row["name"], file=fo)
+
+NGG = len(ngg)
+NGNG = len(ngng)
+GNG = len(gng)
+GG = len(gg)
+
+G = NGG + GG
+NG = NGNG + GNG
+
+# Write out table column
+print("\nTable column:\n")
+# Number of predictions (#genes in GEM) 
+print("{} ({})".format(len(preds), len(res) + 5))
+# NG Recall (NGNG/NG) 
+print("{:.3f} ({}/{})".format(NGNG/NG,NGNG,NG))
+# NG Precision (NGNG/NG)
+print("{:.3f} ({}/{})".format(NGNG/(NGNG+NGG),NGNG,NG))
+# GNG Rate (GNG/NG)
+print("{:.3f} ({}/{})".format(GNG/NG,GNG,NG))
+# NGG Rate (NGG/G)
+print("{:.3f} ({}/{})".format(NGG/G,NGG,G))
+# F1 score
+print("{:.3f}".format(f1))
