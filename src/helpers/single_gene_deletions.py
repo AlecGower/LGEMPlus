@@ -5,6 +5,7 @@ from pathlib import Path
 import multiprocessing as mp
 from functools import partial
 from tqdm.auto import tqdm
+from typing import Optional, Iterable
 
 ap = ArgumentParser(
     description="Conducts single-gene deletions using iProver given a directory containing theory files."
@@ -59,7 +60,14 @@ with open(gene_list) as fi:
             genes.append((orf, name))
 
 
-def calculate_gene_essentiality(gene: tuple, theory_root: os.PathLike):
+def calculate_gene_essentiality(
+    gene: tuple,
+    theory_root: os.PathLike,
+    additional_problem_files: Optional[Iterable] = None,
+):
+    if additional_problem_files is None:
+        additional_problem_files = []
+
     # Calculate deletion
     orf, name = gene
     proof = subprocess.run(
@@ -78,7 +86,7 @@ def calculate_gene_essentiality(gene: tuple, theory_root: os.PathLike):
                     "query.p",
                 ]
             ],
-            *arguments.additional_problem_files,
+            *additional_problem_files,
         ],
         check=True,
         capture_output=True,
@@ -108,7 +116,11 @@ def run_imap_multiprocessing(func, argument_list, num_processes, **tqdm_kwargs):
 
 
 ## Multiprocessing bit
-essentiality_map = partial(calculate_gene_essentiality, theory_root=theory_root)
+essentiality_map = partial(
+    calculate_gene_essentiality,
+    theory_root=theory_root,
+    additional_problem_files=arguments.additional_problem_files,
+)
 
 if __name__ == "__main__":
     essentiality_results = run_imap_multiprocessing(
@@ -119,7 +131,7 @@ if __name__ == "__main__":
 
 if arguments.count_only:
     n_growth = sum(t[2] == "0" for t in essentiality_results)
-    print((n_growth, len(essentiality_results) - n_growth))
+    print("({},{})".format(n_growth, len(essentiality_results) - n_growth))
 else:
     ## Output
     print("orf", "name", "growth", sep="\t")

@@ -104,7 +104,7 @@ with open(theory_root / "info.txt", "w") as fo:
             lm.model_id,
             model_xml,
             gen_time.strftime("%Y-%m-%dT%H:%M:%SZ"),
-            " ".join(sorted([g.name for g in base_knocked_out])),
+            " ".join(sorted([g.orf for g in base_knocked_out])),
             media_name,
             REVERSE_REACTIONS,
             COMPARTMENTLESS,
