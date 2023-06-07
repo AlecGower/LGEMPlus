@@ -342,8 +342,8 @@ with open(reactions_fp) as fi:
     reactions = [
         # (reaction_id_pattern.match(rxn).group(1), "reverse" in rxn.lower())
         ## Different reaction input
-        # (rxn.split(";")[0], rxn.split(";")[1] == "-1")
-        (rxn.rstrip(), False)
+        (rxn.split(";")[0], rxn.split(";")[1] == "-1")
+        # (rxn.rstrip(), False)
         for rxn in fi.readlines()
     ]
 # breakpoint()

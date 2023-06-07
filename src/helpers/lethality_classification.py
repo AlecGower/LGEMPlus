@@ -28,7 +28,11 @@ arguments = ap.parse_args()
 results_root = Path(arguments.results_file).parent
 
 ess = pd.read_csv("data/sgd_ess.csv", index_col=0).drop(columns="name")
-res = pd.read_csv(arguments.results_file, delimiter="\t").set_index("orf")
+print(ess.columns)
+try:
+    res = pd.read_csv(arguments.results_file, delimiter="\t").set_index("orf")
+except KeyError:
+    res = pd.read_csv(arguments.results_file, delimiter=",").set_index("orf")
 
 if arguments.fba:
     print("Results:", len(res))

@@ -15,7 +15,7 @@ mkdir -p $output_directory
 dot_path=""$output_directory"/"$1"_proof.dot"
 helpers/gene_knockout_dot.sh $dot_path $1 $2 ${@:3} >/dev/null
 grep -v " -> " $dot_path |
-	grep rxn | perl -pe 's|^.*(r_\d{4})\w+?(reverse)?.*$|\1 \2|' | sort \
+	grep rxn | perl -ne 'if (/(r_[0-9]{4})/) { print $1 } ; if (/reverse\)\)\)/)  { print ";-1" } else { print ";1" } ; { print "\n" }' | sort \
 	>""$output_directory"/"$1"_proof.rxns"
 
 # Solve FBA with the gene knockout

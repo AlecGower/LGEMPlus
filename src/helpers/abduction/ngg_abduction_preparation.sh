@@ -43,7 +43,7 @@ while read -r hyp clause_count add_clause_component; do
 		helpers/gene_knockout_dot.sh $dot_path $1 $2 ${@:3} \
 			""$output_directory"/"$1"_hypothesis_"$hypCount".p" >/dev/null
 		grep -v " -> " $dot_path |
-			grep rxn | perl -pe 's|^.*(r_\d{4})\w+?(reverse)?.*$|\1 \2|' | sort \
+			grep rxn | perl -ne 'if (/(r_[0-9]{4})/) { print $1 } ; if (/reverse\)\)\)/)  { print ";-1" } else { print ";1" } ; { print "\n" }' | sort \
 			>""$output_directory"/"$1"_hypothesis_"$hypCount".rxns"
 
 		# Solve FBA with the gene knockout
@@ -72,7 +72,7 @@ if [[ $hypCount == $hyp ]]; then
 	helpers/gene_knockout_dot.sh $dot_path $1 $2 ${@:3} \
 		""$output_directory"/"$1"_hypothesis_"$hypCount".p" >/dev/null
 	grep -v " -> " $dot_path |
-		grep rxn | perl -pe 's|^.*(r_\d{4})\w+?(reverse)?.*$|\1 \2|' | sort \
+		grep rxn | perl -ne 'if (/(r_[0-9]{4})/) { print $1 } ; if (/reverse\)\)\)/)  { print ";-1" } else { print ";1" } ; { print "\n" }' | sort \
 		>""$output_directory"/"$1"_hypothesis_"$hypCount".rxns"
 
 	# Solve FBA with the gene knockout
