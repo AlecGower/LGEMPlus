@@ -11,12 +11,22 @@ ap = ArgumentParser(
 )
 ap.add_argument("theory_root")
 ap.add_argument(
+    "-p", "--additional_problem_file", action="append", dest="additional_problem_files"
+)
+ap.add_argument(
     "-g",
     "--gene_list",
     dest="gene_list",
     default="gene_list.txt",
     help="Absolute path or path relative to theory directory that contains list"
     + " of genes to be evaluated. Default = 'gene_list.txt'.",
+)
+ap.add_argument(
+    "-c",
+    "--count_only",
+    dest="count_only",
+    action="store_true",
+    help="Return tuple with counts: (growth, no-growth).",
 )
 
 arguments = ap.parse_args()
@@ -44,7 +54,7 @@ with open(theory_root / "info.txt") as fi:
 genes = []
 with open(gene_list) as fi:
     for ln in fi:
-        orf, name = ln.rstrip().split("\t")
+        orf, name = ln.rstrip().split()
         if orf not in base_deletants and name not in base_deletants:
             genes.append((orf, name))
 
@@ -68,6 +78,7 @@ def calculate_gene_essentiality(gene: tuple, theory_root: os.PathLike):
                     "query.p",
                 ]
             ],
+            *arguments.additional_problem_files,
         ],
         check=True,
         capture_output=True,
@@ -79,11 +90,6 @@ def calculate_gene_essentiality(gene: tuple, theory_root: os.PathLike):
     )
     return orf, name, deletion_result.stdout.rstrip().decode("utf-8")
 
-
-## Multiprocessing bit
-pool = mp.Pool(mp.cpu_count())
-essentiality_results = []
-essentiality_map = partial(calculate_gene_essentiality, theory_root=theory_root)
 
 ## Credit for this function to leimao@github
 def run_imap_multiprocessing(func, argument_list, num_processes, **tqdm_kwargs):
@@ -101,6 +107,9 @@ def run_imap_multiprocessing(func, argument_list, num_processes, **tqdm_kwargs):
         return result_list_tqdm
 
 
+## Multiprocessing bit
+essentiality_map = partial(calculate_gene_essentiality, theory_root=theory_root)
+
 if __name__ == "__main__":
     essentiality_results = run_imap_multiprocessing(
         essentiality_map, genes, mp.cpu_count(), desc=model_id
@@ -108,7 +117,12 @@ if __name__ == "__main__":
 
 # essentiality_results = # list of tuples '(orf, name, essential)'
 
-## Output
-print("orf", "name", "growth", sep="\t")
-for orf, name, essential in essentiality_results:
-    print(orf, name, 1 - int(essential), sep="\t")
+if arguments.count_only:
+    n_growth = sum(t[2] == "0" for t in essentiality_results)
+    print((n_growth, len(essentiality_results) - n_growth))
+else:
+    ## Output
+    print("orf", "name", "growth", sep="\t")
+    for orf, name, essential in essentiality_results:
+        print(orf, name, 1 - int(essential), sep="\t")
+
