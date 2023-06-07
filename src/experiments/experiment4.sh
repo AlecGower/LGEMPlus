@@ -11,7 +11,7 @@ for model in $(ls experiments/theories/); do
 	if [[ $model =~ "yeastGEM" ]]; then
 		latest=$model/$(ls experiments/theories/$model | tail -n 1)
 		printf "BASE_STRAIN\n$(cut -d " " -f 1 experiments/results/$latest/log_gng.txt)"|
-			xargs -n 1 -P 8 -I{} /bin/bash \
+			xargs -n 1 -P 8 -I{} timeout 300 /bin/bash \
 				helpers/gng_investigation.sh \
 				{} \
 				experiments/theories/$latest/genes.p \
