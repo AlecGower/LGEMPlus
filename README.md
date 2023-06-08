@@ -1,2 +1,3 @@
-# LogMet-DS2023
-Companion code for submission to DS2023
+# LGEM<sup>+</sup>: a first-order logic framework for automated improvement of metabolic network models
+
+This repository is code for LGEM<sup>+</sup>.
