@@ -3,8 +3,8 @@ import os, sys
 from typing import Iterable
 
 sys.path.append(os.getcwd())
-from genesis.io import logical_model_from_sbml
-from genesis.logicalmet import LogicalClause, LogicalLiteral
+from lgemcore.io import logical_model_from_sbml
+from lgemcore.logicalmet import LogicalClause, LogicalLiteral
 from helpers.abduce_hypotheses import abduce_hypotheses
 from pathlib import Path
 from datetime import datetime
@@ -13,10 +13,10 @@ gen_time = datetime.utcnow()
 
 model = sys.argv[-1]
 
-model_xml = "ModelFiles/{}.xml".format(model)
-query_compounds = "ModelFiles/essential-compounds-{}.tsv".format(model)
-ubiquitous_compounds = "ModelFiles/ubiquitous-compounds-{}.tsv".format(model)
-media_compounds = "ModelFiles/ynb-compounds-{}.tsv".format(model)
+model_xml = "model-files/{}.xml".format(model)
+query_compounds = "model-files/essential-compounds-{}.tsv".format(model)
+ubiquitous_compounds = "model-files/ubiquitous-compounds-{}.tsv".format(model)
+media_compounds = "model-files/ynb-compounds-{}.tsv".format(model)
 media_name = "ynb"
 
 # base_knocked_out = "HIS3 LEU2 LYS2 MET17 URA3".split(" ")

@@ -2,7 +2,7 @@
 import sys
 
 sys.path.append("/usr/src/logmet")
-from genesis.logicalmet import *
+from lgemcore.logicalmet import *
 import re
 from bs4 import BeautifulSoup
 

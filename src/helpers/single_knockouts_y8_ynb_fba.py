@@ -43,7 +43,7 @@ def track_job(pool, job, update_interval=10):
 
 
 # %%
-path_to_model = "ModelFiles/yeastGEM.xml"
+path_to_model = "model-files/yeastGEM.xml"
 y8 = read_sbml_model(path_to_model)
 # y8.solver.configuration.verbosity = 0
 print("Yeast8 model loaded.")
@@ -52,7 +52,7 @@ num_genes = len(y8.genes)
 
 # %%
 ynb = []
-with open("ModelFiles/ynb-compounds-yeastGEM.tsv") as fi:
+with open("model-files/ynb-compounds-yeastGEM.tsv") as fi:
     for ln in fi:
         try:
             ynb.append(ln.rstrip().split('\t')[3])
@@ -64,7 +64,7 @@ print("Yeast Nitrogen Base metabolites loaded.")
 
 # %%
 ubiquitous = []
-with open("ModelFiles/ubiquitous-compounds-yeastGEM.tsv") as fi:
+with open("model-files/ubiquitous-compounds-yeastGEM.tsv") as fi:
     for ln in fi:
         try:
             ubiquitous.append(ln.rstrip().split('\t')[3])

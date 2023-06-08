@@ -171,4 +171,4 @@ src/experiments/evaluate_hypotheses.py
 *.log
 
 # Extra Model Files
-src/ModelFiles/sbml_models
+src/model-files/sbml_models

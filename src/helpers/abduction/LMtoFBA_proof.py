@@ -7,7 +7,7 @@ from cobra.core.reaction import Reaction
 from cobra.io import read_sbml_model
 from cobra.core import Model, Solution
 
-# from genesis.io import logical_model_from_sbml
+# from lgemcore.io import logical_model_from_sbml
 import numpy as np
 
 from typing import Optional, Tuple, Union, Iterable
