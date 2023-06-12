@@ -25,7 +25,7 @@ LABEL maintainer.name="Alexander Gower"
 LABEL maintainer.email="gower@chalmers.se" 
 
 # Set up root directory
-WORKDIR /usr/src/logmet
+WORKDIR /usr/src/lgemplus
 
 # Copy over statically compiled iProver image
 
