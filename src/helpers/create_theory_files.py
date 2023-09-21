@@ -182,3 +182,14 @@ with open(theory_root / "abduced_extra_compounds.p", "w") as fo:
 with open(theory_root / "gene_list.txt", "w") as fo:
     for gene in lm.genes:
         fo.write("{}\t{}\n".format(gene.orf, gene.name))
+
+# Write KEGG synonyms to file
+with open(theory_root / "kegg_synonyms.p", "w") as fo:
+    for species in lm.metabolites:
+        for compartment in lm.compartments.values():
+            fo.write(species.cnf_kegg_synonym(compartment=compartment))
+
+# Write KEGG synonyms to file
+with open(theory_root / "kegg_synonyms.txt", "w") as fo:
+    for species in lm.metabolites:
+        fo.write("{}\t{}\n".format(species.word, species.kegg_word))

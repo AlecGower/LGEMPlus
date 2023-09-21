@@ -1,6 +1,7 @@
 # %%
 from ast import arguments
 from genericpath import exists
+from itertools import permutations
 from lib2to3.pgen2 import literals
 from os import name, PathLike
 from pyexpat import model
@@ -83,16 +84,24 @@ class LogicalMetabolicModel:
     def get_gene(self, gene_orf: str):
         return [g for g in self.genes if g.orf == gene_orf][0]
 
-    def print_reactions(self, compartmentless: bool = False, out_fo: Optional[TextIO] = None):
+    def print_reactions(
+        self, compartmentless: bool = False, out_fo: Optional[TextIO] = None
+    ):
         for r in self.reactions:
             print(r.cnf_lines(compartments=(not compartmentless)), file=out_fo)
 
     def print_genes(self, knocked_out: Iterable = [], out_fo: Optional[TextIO] = None):
         for g in self.genes:
             if g in knocked_out:
-                print(g.cnf_presence(present=False, presence_type="_deletion"), file=out_fo)
+                print(
+                    g.cnf_presence(present=False, presence_type="_deletion"),
+                    file=out_fo,
+                )
             else:
-                print(g.cnf_presence(present=True, presence_type="_in_genome"), file=out_fo)
+                print(
+                    g.cnf_presence(present=True, presence_type="_in_genome"),
+                    file=out_fo,
+                )
 
 
 # %%
@@ -177,6 +186,7 @@ class LogicalMetabolite:
         sbml_ids: Optional[dict] = None,
         identifiers: Iterable = [],
         cobra_metabolite: Optional["Metabolite"] = None,
+        kegg_id: Optional[str] = None,
     ) -> None:
 
         self.model = model
@@ -205,11 +215,17 @@ class LogicalMetabolite:
             else:
                 self.compartments = set([compartments])
             self.identifiers = identifiers
+            self.kegg_id = kegg_id
 
         if not word:
             self.word = "m" + "_" + self.NW.sub("_", self.species)
         else:
             self.word = word
+
+        if kegg_id is not None:
+            self.kegg_word = "kegg_{}".format(self.kegg_id)
+        else:
+            self.kegg_word = None
 
     def __str__(self) -> str:
         return self.word
@@ -230,6 +246,7 @@ class LogicalMetabolite:
             "sbml.name": cobra_metabolite.name,
         }
         self.chemical_formula = cobra_metabolite.formula
+        self.kegg_id = cobra_metabolite.annotation.get("kegg.compound")
 
     def as_literal(
         self,
@@ -285,6 +302,38 @@ class LogicalMetabolite:
                     ),
                     "",
                 ]
+            )
+        else:
+            return ""
+
+    def cnf_kegg_synonym(self, compartment: LogicalCompartment) -> str:
+        if self.kegg_word is not None:
+            return "\n".join(
+                [
+                    str(
+                        LogicalClause(
+                            name="synonym_{}_{}_{}_{}".format(
+                                self.kegg_word, self.word, compartment.word, i
+                            ),
+                            literals=[
+                                LogicalLiteral(
+                                    predicate_symbol="met",
+                                    arguments=[w1, compartment.word],
+                                    negated=False,
+                                ),
+                                LogicalLiteral(
+                                    predicate_symbol="met",
+                                    arguments=[w2,  compartment.word],
+                                    negated=True,
+                                ),
+                            ],
+                        )
+                    )
+                    for i, (w1, w2) in enumerate(
+                        permutations([self.word, self.kegg_word])
+                    )
+                ]
+                + [""]
             )
         else:
             return ""

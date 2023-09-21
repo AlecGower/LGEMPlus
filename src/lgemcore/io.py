@@ -32,7 +32,7 @@ def logical_model_from_sbml(
         b = BeautifulSoup(fi.read(), "xml")
 
     # Create model
-    M = LogicalMetabolicModel(model_id=b.find('model').get('id'))
+    M = LogicalMetabolicModel(model_id=b.find("model").get("id"))
 
     # Load compartments
     for c in b.find_all("compartment"):
@@ -61,7 +61,7 @@ def logical_model_from_sbml(
         except AttributeError:
             s_ids = []
 
-        print
+        s_kegg_id = dict([id.split("/")[-2:] for id in s_ids]).get("kegg.compound")
 
         try:
             existing_mets = list(
@@ -89,6 +89,7 @@ def logical_model_from_sbml(
                     compartments=[comp],
                     sbml_ids={s.get("id"): comp},
                     identifiers=(s_ids if s_ids else []),
+                    kegg_id=s_kegg_id,
                 )
             )
 
