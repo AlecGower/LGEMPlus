@@ -172,3 +172,6 @@ src/experiments/evaluate_hypotheses.py
 
 # Extra Model Files
 src/model-files/sbml_models
+
+synonym-test/
+ifftest.txt
