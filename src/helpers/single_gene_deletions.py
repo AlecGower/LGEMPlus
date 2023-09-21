@@ -72,6 +72,8 @@ def calculate_gene_essentiality(
     orf, name = gene
     proof = subprocess.run(
         [
+            "/usr/bin/time",
+            "-f%U\t%S\t%P\t%e",
             "bash",
             "./helpers/gene_knockout_simple.sh",
             orf,
@@ -96,7 +98,12 @@ def calculate_gene_essentiality(
         input=proof.stdout,
         capture_output=True,
     )
-    return orf, name, deletion_result.stdout.rstrip().decode("utf-8")
+    return (
+        orf,
+        name,
+        deletion_result.stdout.rstrip().decode("utf-8"),
+        proof.stderr.strip().decode("utf-8"),
+    )
 
 
 ## Credit for this function to leimao@github
@@ -127,14 +134,14 @@ if __name__ == "__main__":
         essentiality_map, genes, mp.cpu_count(), desc=model_id
     )
 
-# essentiality_results = # list of tuples '(orf, name, essential)'
+# essentiality_results = # list of tuples '(orf, name, essential, time)'
 
 if arguments.count_only:
     n_growth = sum(t[2] == "0" for t in essentiality_results)
     print("({},{})".format(n_growth, len(essentiality_results) - n_growth))
 else:
     ## Output
-    print("orf", "name", "growth", sep="\t")
-    for orf, name, essential in essentiality_results:
-        print(orf, name, 1 - int(essential), sep="\t")
+    print("orf", "name", "growth", "user", "sys", "cpu", "elapsed", sep="\t")
+    for orf, name, essential, time in essentiality_results:
+        print(orf, name, 1 - int(essential), time, sep="\t")
 
