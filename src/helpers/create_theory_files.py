@@ -11,16 +11,22 @@ from datetime import datetime
 
 gen_time = datetime.utcnow()
 
-model = sys.argv[-1]
+model = sys.argv[-2]
+media_name = sys.argv[-1]
 
 model_xml = "model-files/{}.xml".format(model)
 query_compounds = "model-files/essential-compounds-{}.tsv".format(model)
 ubiquitous_compounds = "model-files/ubiquitous-compounds-{}.tsv".format(model)
-media_compounds = "model-files/ynb-compounds-{}.tsv".format(model)
-media_name = "ynb"
+# media_compounds = "model-files/ynb-compounds-{}.tsv".format(model)
+# media_name = "ynb"
+# media_name = "scgal"
+media_compounds = "model-files/{}-compounds-{}.tsv".format(media_name, model)
 
-# base_knocked_out = "HIS3 LEU2 LYS2 MET17 URA3".split(" ")
-base_knocked_out = "YOR202W YCL018W YBR115C YLR303W YEL021W".split(" ")
+# # base_knocked_out = "HIS3 LEU2 LYS2 MET17 URA3".split(" ")
+# base_knocked_out = "YOR202W YCL018W YBR115C YLR303W YEL021W".split(" ") # BY4743
+# base_knocked_out = "HIS3 LEU2 MET17 URA3".split(" ")
+# base_knocked_out = "YOR202W YCL018W YLR303W YEL021W".split(" ")  # BY4741
+base_knocked_out = "YOR202W YCL018W YBR115C YEL021W".split(" ")  # BY4742
 
 GENE_ACTIVATIONS = True
 REVERSE_REACTIONS = True
@@ -40,11 +46,12 @@ base_knocked_out = [
     )
 ]
 
+
 # Load lists of query and ubiquitous compounds
 def read_compounds(file: os.PathLike) -> list:
     compound_list = []
     with open(file, "r") as fi:
-        for (lnno, row) in enumerate(fi):
+        for lnno, row in enumerate(fi):
             if lnno > 0:
                 try:
                     compound = row.split("\t")[3].rstrip()
@@ -60,6 +67,20 @@ compounds = {
     for ky in ["query", "ubiquitous", "media"]
 }
 
+# Load compound synonyms
+compound_synonyms = {}
+try:
+    with open("model-files/compound-synonyms-{}.tsv".format(model)) as fi:
+        for lnno, row in enumerate(fi):
+            if lnno > 0:
+                try:
+                    compound1, compound2 = row.rstrip().split("\t")
+                    if compound1 != "":
+                        compound_synonyms[compound1] = compound2
+                except ValueError:
+                    pass
+except FileNotFoundError:
+    pass
 # Create theories directory with following structure
 # theories
 # └── <GEM>
@@ -113,7 +134,40 @@ with open(theory_root / "info.txt", "w") as fo:
 
 # Write out reactions
 with open(theory_root / "reactions.p", "w") as fo:
-    lm.print_reactions(compartmentless=COMPARTMENTLESS, out_fo=fo)
+    lm.print_reactions(
+        compartmentless=COMPARTMENTLESS, skip_reaction_ids=["R_r_0767"], out_fo=fo
+    )
+
+# Write out compound synonyms
+with open(theory_root / "compound_synonyms.p", "w") as fo:
+    for c1, c2 in compound_synonyms.items():
+        c1 = [m for m in lm.metabolites if m.species == c1][0]
+        c2 = [m for m in lm.metabolites if m.species == c2][0]
+        for c in lm.compartments.values():
+            fo.write(
+                "{}\n".format(
+                    LogicalClause(
+                        f"synonym_{c1.word}_{c2.word}_{c}",
+                        literals=[
+                            LogicalLiteral("met", [c1.word, c.word], negated=False),
+                            LogicalLiteral("met", [c2.word, c.word], negated=True),
+                        ],
+                        type="axiom",
+                    )
+                )
+            )
+            fo.write(
+                "{}\n".format(
+                    LogicalClause(
+                        f"synonym_{c2.word}_{c1.word}_{c}",
+                        literals=[
+                            LogicalLiteral("met", [c2.word, c.word], negated=False),
+                            LogicalLiteral("met", [c1.word, c.word], negated=True),
+                        ],
+                        type="axiom",
+                    )
+                )
+            )
 
 # Write out gene activations
 with open(theory_root / "genes.p", "w") as fo:
@@ -126,11 +180,17 @@ with open(theory_root / "media_compounds.p", "w") as fo:
             if not COMPARTMENTLESS:
                 fo.write(
                     m.cnf_presence(
-                        compartment=lm.compartments.get("e"), presence_type="MEDIA",
+                        compartment=lm.compartments.get("e"),
+                        presence_type="MEDIA",
                     )
                 )
             else:
-                fo.write(m.cnf_presence(compartment=False, presence_type="MEDIA",))
+                fo.write(
+                    m.cnf_presence(
+                        compartment=False,
+                        presence_type="MEDIA",
+                    )
+                )
 
 # Write out ubiquitous metabolites
 with open(theory_root / "ubiquitous_compounds.p", "w") as fo:
@@ -138,12 +198,21 @@ with open(theory_root / "ubiquitous_compounds.p", "w") as fo:
         if m.species in compounds["ubiquitous"]:
             if not COMPARTMENTLESS:
                 for c in lm.compartments.values():
-                    fo.write(m.cnf_presence(compartment=c, presence_type="UBIQUITOUS",))
+                    fo.write(
+                        m.cnf_presence(
+                            compartment=c,
+                            presence_type="UBIQUITOUS",
+                        )
+                    )
             else:
                 fo.write(m.cnf_presence(compartment=False, presence_type="UBIQUITOUS"))
 
 # Write query
-query = LogicalClause("query_metabolites", literals=[], type="negated_conjecture",)
+query = LogicalClause(
+    "query_metabolites",
+    literals=[],
+    type="negated_conjecture",
+)
 cytosol = lm.compartments.get("c")
 for m in lm.metabolites:
     if m.species in compounds["query"]:
@@ -166,7 +235,11 @@ with open(theory_root / "query.p", "w") as fo:
 
 # Abduce extra
 hypotheses = abduce_hypotheses(
-    theory_root, excluded_predicates=["rxn", "pro", "gn", "enz"]
+    theory_root,
+    excluded_predicates=["rxn", "pro", "gn", "enz"],
+    # excluded_compounds=["glucose", "galactose"],
+    # excluded_compounds=["_glucose", "_ADP"],
+    excluded_compounds=["_glucose"],
 )
 
 # Choose the hypothesis with the lowest number of additional compounds
