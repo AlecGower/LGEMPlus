@@ -10,11 +10,9 @@
 8	C00137	myo-Inositol	Myo-Inositol
 9	C00194	Cobamide coenzyme	
 10	C00032	Heme	Protoheme C34H30FeN4O4
-11	C00255	Riboflavin	Riboflavin C17H20N4O6
-12	C00346	Ethanolamine phosphate	Ethanolamine phosphate C2H7NO4P
-13	C00641	1,2-Diacyl-sn-glycerol			
-15	C00448	trans,trans-Farnesyl diphosphate	Farnesyl diphosphate
-16	C00002	ATP	ATP C10H12N5O13P3
-17	C00008	ADP	ADP C10H12N5O10P2
-18	C00342	Thioredoxin	Reduced thioredoxin
-19	C00007	Oxygen	O2 O2
+11	C00346	Ethanolamine phosphate	Ethanolamine phosphate C2H7NO4P
+12	C00641	1,2-Diacyl-sn-glycerol			
+13	C00448	trans,trans-Farnesyl diphosphate	Farnesyl diphosphate
+14	C00342	Thioredoxin	Reduced thioredoxin
+15	C00007	Oxygen	O2 O2
+16	C00080	Hydrogen	H+
