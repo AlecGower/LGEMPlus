@@ -1,0 +1,37 @@
+From this point forward, we are roleplaying. You are a scientist. Your expertise is saccharomyces cerevisiae metabolism. Your knowledge is comprised of all the literature you've trained on. I am going to provide you with information about the foundation model we used for the simulation. I will provide you with the query we used for the simulation. The extra deletant in this simulation was YLR209C/PNP1, which is experimentally shown to be a viable mutant. The simulation predicted is was inviable. At the end is a list of hypotheses, each of which would result in a simulation prediction of growth. You need to reason about which of these hypotheses is the most likely.
+
+ You need to be creative about this. Remember. This is saccharomyces cerevisiae metabolism, but you could make use of any information that you have available to you. Where possible, you should provide evidence from the literature that back up your ideas.
+
+Theory files information
+
+========================
+ 
+Base GEM ID:         M_yeastGEM_v8__46__4__46__2
+
+Base GEM filepath:   model-files/yeastGEM.xml
+
+Generation time:     2023-11-14T13:26:00Z
+ 
+Base deletants:      YCL018W YEL021W YLR303W YOR202W
+
+Growth medium:       SD_minimal
+ 
+Reverse reactions included:         True
+
+Compartmentless metabolites:        False
+ 
+Query: cnf(query_metabolites, negated_conjecture, ( met(m_3__5__cyclic_AMP, c_c) | met(m_3_hydroxy_3_methylglutaryl_CoA, c_c) | met(m_acetyl_CoA, c_c) | met(m_adenine, c_c) | met(m_adenosine, c_c) | met(m_ADP, c_c) | met(m_AMP, c_c) | met(m_ATP, c_c) | met(m_choline, c_c) | met(m_CMP, c_c) | met(m_CTP, c_c) | met(m_cytidine, c_c) | met(m_cytosine, c_c) | met(m_D_glucose_1_phosphate, c_c) | met(m_dATP, c_c) | met(m_dCTP, c_c) | met(m_dGTP, c_c) | met(m_dTTP, c_c) | met(m_ergosterol, c_c) | met(m_ethanolamine, c_c) | met(m_FAD, c_c) | met(m_FMN, c_c) | met(m_GDP, c_c) | met(m_GDP_alpha_D_mannose, c_c) | met(m_glycerol, c_c) | met(m_GMP, c_c) | met(m_GTP, c_c) | met(m_guanine, c_c) | met(m_guanosine, c_c) | met(m_hypoxanthine, c_c) | met(m_IMP, c_c) | met(m_inosine, c_c) | met(m_L_alanine, c_c) | met(m_L_arginine, c_c) | met(m_L_asparagine, c_c) | met(m_L_aspartate, c_c) | met(m_L_cysteine, c_c) | met(m_L_glutamate, c_c) | met(m_L_glutamine, c_c) | met(m_L_glycine, c_c) | met(m_L_histidine, c_c) | met(m_L_isoleucine, c_c) | met(m_L_leucine, c_c) | met(m_L_lysine, c_c) | met(m_L_methionine, c_c) | met(m_L_phenylalanine, c_c) | met(m_L_proline, c_c) | met(m_L_serine, c_c) | met(m_L_threonine, c_c) | met(m_L_tryptophan, c_c) | met(m_L_tyrosine, c_c) | met(m_L_valine, c_c) | met(m_myo_inositol, c_c) | met(m_NAD, c_c) | met(m_NADH, c_c) | met(m_NADP___, c_c) | met(m_NADPH, c_c) | met(m_phosphatidylcholine_backbone, c_c) | met(m_pyruvate, c_c) | met(m_sphinganine_1_phosphate, c_er) | met(m_TDP, c_c) | met(m_thymidine, c_c) | met(m_triglyceride_backbone, c_c) | met(m_thiamine_1___triphosphate_4__, c_c) | met(m_UDP, c_c) | met(m_UDP_N_acetyl_alpha_D_glucosamine, c_c) | met(m_UMP, c_c) | met(m_uracil, c_c) | met(m_uridine, c_c) | met(m_UTP, c_c) | met(m_phosphatidate, c_m) | met(m_alpha_D_Glucose_6_phosphate, c_c) )).
+ 
+Hypotheses
+ 
+{(rxn(r_R_r_1819_guanine_transport_reverse))}
+
+{(rxn(r_R_r_1819_guanine_transport))}
+
+{(rxn(r_R_r_1176_guanine_transport_reverse))}
+
+{(rxn(r_R_r_1176_guanine_transport))}
+
+{(rxn(r_R_r_0950_guanosine_phosphorylase))}
+
+{(rxn(r_R_r_0949_guanosine_phosphorylase))}

@@ -1,16 +1,19 @@
 import os
 from pathlib import Path
+import sys
 from typing import Iterable, Optional
 
 
 def abduce_hypotheses(
     theory_directory: os.PathLike,
     excluded_predicates: Iterable = ["rxn", "pro", "gn"],
+    excluded_compounds: Optional[Iterable[str]] = None,
     knockouts: Optional[Iterable[str]] = None,
 ):
     theory_directory = Path(theory_directory)
     theory_files = [
         "reactions.p",
+        "compound_synonyms.p",
         "media_compounds.p",
         "ubiquitous_compounds.p",
         "query.p",
@@ -59,5 +62,20 @@ def abduce_hypotheses(
     hypotheses = [
         h[h.find("{") + 1 : h.find("}")].split(";") for h in filtered.readlines()
     ]
+    if excluded_compounds is not None:
+        pops = []
+        for i, h in enumerate(hypotheses):
+            for s in excluded_compounds:
+                if any([s.lower() in a.lower() for a in h]):
+                    print(
+                        "Excluding hypothesis '{}' from list, contains '{}'. ({})".format(
+                            i, s, h
+                        ),
+                        # file=sys.stderr,
+                    )
+                    pops.append(i)
+                    break
+        for i in pops[::-1]:
+            hypotheses.pop(i)
 
     return hypotheses
