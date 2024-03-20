@@ -85,10 +85,11 @@ class LogicalMetabolicModel:
         return [g for g in self.genes if g.orf == gene_orf][0]
 
     def print_reactions(
-        self, compartmentless: bool = False, out_fo: Optional[TextIO] = None
+        self, compartmentless: bool = False, skip_reaction_ids: Iterable[str] = [], out_fo: Optional[TextIO] = None
     ):
         for r in self.reactions:
-            print(r.cnf_lines(compartments=(not compartmentless)), file=out_fo)
+            if not r.sbml_id in skip_reaction_ids:
+                print(r.cnf_lines(compartments=(not compartmentless)), file=out_fo)
 
     def print_genes(self, knocked_out: Iterable = [], out_fo: Optional[TextIO] = None):
         for g in self.genes:
