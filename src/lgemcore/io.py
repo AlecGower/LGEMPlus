@@ -179,7 +179,7 @@ def logical_model_from_sbml(
                 sbml_id=r.get("id"),
             )
         )
-        if include_reverse and r.get("reversible") == "true":
+        if include_reverse and r.get("reversible") == "true" and not "exchange" in r.get("name"):
             M.reactions.append(
                 LogicalReaction(
                     model=M,
