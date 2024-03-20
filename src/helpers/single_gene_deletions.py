@@ -72,7 +72,8 @@ def calculate_gene_essentiality(
     orf, name = gene
     proof = subprocess.run(
         [
-            "/usr/bin/time",
+            # "/usr/bin/time",
+            "gtime",
             "-f%U\t%S\t%P\t%e",
             "bash",
             "./helpers/gene_knockout_simple.sh",
@@ -82,6 +83,7 @@ def calculate_gene_essentiality(
                 str(theory_root / fname)
                 for fname in [
                     "reactions.p",
+                    "compound_synonyms.p",
                     "ubiquitous_compounds.p",
                     "media_compounds.p",
                     "abduced_extra_compounds.p",
