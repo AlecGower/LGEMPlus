@@ -175,3 +175,9 @@ src/model-files/sbml_models
 
 synonym-test/
 ifftest.txt
+src/BASE_YPD.temp
+src/BASE.temp
+src/FEN2_YPD.temp
+src/PFK2.temp
+src/experiments/experiment6.sh
+src/helpers/mp-test.py
