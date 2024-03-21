@@ -6,13 +6,13 @@
 4	C00003	NAD+	NAD(+)_C21H27N7O14P2
 5	C00061	FMN	FMN_C17H21N4O9P
 6	C00575	3*,5*-Cyclic AMP	3',5'-cyclic AMP_C10H12N5O6P
-7	C00399	ubiquinone-9_C54H82O4	
+7	C00399	ubiquinone-9_C54H82O4		
 8	C00137	myo-Inositol	myo-inositol_C6H12O6
-9	C00194	Cobamide coenzyme	
+9	C00194	Cobamide coenzyme		
 10	C00032	Heme	heme_
 11	#C00346	Ethanolamine phosphate	ethanolamine phosphate_C2H8NO4P
-12	#C00641	1,2-Diacyl-sn-glycerol			
+12	#C00641	1,2-Diacyl-sn-glycerol		
 13	#C00448	trans,trans-Farnesyl diphosphate	2-trans,6-trans-farnesyl diphosphate_C15H28O7P2
-14	#C00342	Thioredoxin	
+14	#C00342	Thioredoxin		
 15	#C00007	Oxygen	oxygen_
 16	C00080	Hydrogen	H(+)_
