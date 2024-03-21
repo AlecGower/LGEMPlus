@@ -47,4 +47,4 @@ ENV IPROVER_HOME="/usr/src/iprover"
 
 # CMD ["python", "./tests/load_SBML_models_test.py"]
 # CMD /usr/src/iprover/iproveropt --help
-CMD ["echo", ""]
+CMD ["/bin/bash"]
