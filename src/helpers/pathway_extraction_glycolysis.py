@@ -8,6 +8,10 @@ from tqdm.auto import tqdm
 from typing import Optional, Iterable
 import re
 from pprint import pprint
+import pickle
+from datetime import datetime, timezone
+
+start_time = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H%M%SZ")
 
 NUM_PROCESSES = mp.cpu_count() - 2
 MY_ENV = os.environ.copy()
@@ -224,21 +228,31 @@ def print_with_lock(s: str, l: mp.Lock):
 # Loop
 
 
-def worker(ko_genes, qnext, printl):
+def worker(ko_genes, qnext, results_dict, results_lock, printl):
     # ko_genes = q.get()
-    ko_orfs = [g[0] for g in ko_genes]
-    # printl(f"Calculating pathway for strain: {ko_genes}")
-    result = pathway_map_base(ko_orfs)
-    if result[2]:
-        # printl(f"VIABLE\tStrain:{result[0]}\tPathway Length: {len(result[1]):>3}")
-        for g in result[1]:
-            # qnext.put(ko_genes + [g])
-            qnext.append(ko_genes + [g])
-        # q.task_done()
-    else:
-        pass
-        # printl(f"LETHAL\tStrain:{result[0]}")
-    return result
+    results_key = frozenset(ko_genes)
+
+    with results_lock:
+        new_strain = results_key not in results_dict
+
+    if new_strain:
+        ko_orfs = [g[0] for g in ko_genes]
+        # printl(f"Calculating pathway for strain: {ko_genes}")
+        result = pathway_map_base(ko_orfs)
+        if result[2]:
+            # printl(f"VIABLE\tStrain:{result[0]}\tPathway Length: {len(result[1]):>3}")
+            for g in result[1]:
+                # qnext.put(ko_genes + [g])
+                qnext.append(ko_genes + [g])
+            # q.task_done()
+        else:
+            pass
+            # printl(f"LETHAL\tStrain:{result[0]}")
+        with results_lock:
+            results_dict[results_key] = {
+                "result": result,
+                "pathway_hash": hash(frozenset(result[1])),
+            }
 
 
 if __name__ == "__main__":
@@ -249,10 +263,11 @@ if __name__ == "__main__":
         q = manager.list()
         # qnext = manager.Queue()
         qnext = manager.list()
-        results = manager.list()
+        results_dict = manager.dict()
 
-        l = manager.Lock()
-        printl = partial(print_with_lock, l=l)
+        printlock = manager.Lock()
+        results_lock = manager.Lock()
+        printl = partial(print_with_lock, l=printlock)
 
         # lethal_combos = []
         # viable_pathways_untested = []
@@ -273,66 +288,24 @@ if __name__ == "__main__":
             # qnext = manager.Queue()
             qnext = manager.list()
             # printl(f"q: {q}\tqnext: {qnext}")
-            workern = partial(worker, qnext=qnext, printl=printl)
-            results.extend(
-                run_imap_multiprocessing(
-                    workern,
-                    q,
-                    num_processes=NUM_PROCESSES,
-                    desc=f"Strain KO Count - {ko_count}",
-                )
+            workern = partial(
+                worker,
+                qnext=qnext,
+                results_dict=results_dict,
+                results_lock=results_lock,
+                printl=printl,
             )
+            run_imap_multiprocessing(
+                workern,
+                q,
+                num_processes=NUM_PROCESSES,
+                desc=f"Strain KO Count - {ko_count}",
+            )
+
+            with open(f"experiments/results/glycolysis_pathways_{start_time}.pickle", "wb") as f:
+                # Pickle the 'data' dictionary using the highest protocol available.
+                pickle.dump(results_dict, f, pickle.HIGHEST_PROTOCOL)
             # print(f"Strains up to {ko_count} knockouts calculated. Next level")
             ko_count += 1
 
-        print(len(results))
-        pprint(results[:5])
-
-
-# while len(viable_pathways_untested) > 0:
-#     print(
-#         "{} pathways tested, {} pathways in queue. {} lethal mutants found.".format(
-#             len(viable_pathways),
-#             len(viable_pathways_untested),
-#             len(lethal_combos),
-#         )
-#     )
-#     ko_genes, pathway = viable_pathways_untested.pop(0)
-#     pathway_map = partial(pathway_map_base, ko_genes=ko_genes)
-#     print(pathway_map(pathway[0]))
-#     if __name__ == "__main__":
-#         pathway_results = run_imap_multiprocessing(
-#             pathway_map, pathway, mp.cpu_count(), desc=f"Strain{ko_genes}", leave=False
-#         )
-#     # for g in pathway:
-#     #     strain = ko_genes + [g[0]]
-#     #     new = calculate_pathway(
-#     #         ko_genes=strain,
-#     #         theory_root=theory_root,
-#     #         additional_problem_files=arguments.additional_problem_files,
-#     #     )
-#     # print(pathway_results)
-
-#     # Add results to lists
-#     lethal_combos.extend([new[0] for new in pathway_results if not new[2]])
-#     viable_pathways_untested.extend([new[:2] for new in pathway_results if not new[2]])
-#     viable_pathways.append((ko_genes, pathway))
-#     print("Lethal:")
-#     pprint(lethal_combos)
-#     print("Untested:")
-#     pprint(viable_pathways_untested)
-#     print("Tested:")
-#     pprint(viable_pathways)
-
-
-# pprint(lethal_combos)
-# pprint(viable_pathways)
-
-
-# pathway_results = # list of tuples '(orf, name, essential, time)'
-
-# ## Output
-# print("orf", "name", "activatedorf", "activatedname", sep="\t")
-# for orf, name, l in pathway_results:
-#     for actorf, actname in l:
-#         print(orf, name, actorf, actname, sep="\t")
+            # pprint(dict(results_dict))
