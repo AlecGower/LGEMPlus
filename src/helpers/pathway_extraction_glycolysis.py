@@ -304,7 +304,7 @@ if __name__ == "__main__":
 
             with open(f"experiments/results/glycolysis_pathways_{start_time}.pickle", "wb") as f:
                 # Pickle the 'data' dictionary using the highest protocol available.
-                pickle.dump(results_dict, f, pickle.HIGHEST_PROTOCOL)
+                pickle.dump(dict(results_dict), f, pickle.HIGHEST_PROTOCOL)
             # print(f"Strains up to {ko_count} knockouts calculated. Next level")
             ko_count += 1
 
