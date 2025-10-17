@@ -95,14 +95,24 @@ def logical_model_from_sbml(
 
     # Load genes
     for g in b.find_all("fbc:geneProduct"):
-        M.genes.append(
-            LogicalGene(
-                model=M,
-                orf=g.get("fbc:label").replace("G_", ""),
-                name=g.get("fbc:name"),
-                sbml_id=g.get("fbc:id"),
+        try:
+            M.genes.append(
+                LogicalGene(
+                    model=M,
+                    orf=g.get("fbc:label").replace("G_", ""),
+                    name=g.get("fbc:name"),
+                    sbml_id=g.get("fbc:id"),
+                )
             )
-        )
+        except AssertionError:
+            M.genes.append(
+                LogicalGene(
+                    model=M,
+                    orf=g.get("fbc:id"),
+                    name=g.get("fbc:label"),
+                    sbml_id=g.get("metaid"),
+                )
+            )
 
     # Load reactions
     for r in b.find_all("reaction"):

@@ -404,6 +404,7 @@ class LogicalReaction:
         self,
         model: "LogicalMetabolicModel",
         name: Optional[str] = None,
+        toggle: Optional[bool] = True,
         reactants: Optional[Iterable[Tuple[str, "Metabolite"]]] = None,
         products: Optional[Iterable[Tuple[str, "Metabolite"]]] = None,
         enzymes: Optional[Iterable["LogicalEnzymeComplex"]] = None,
@@ -412,6 +413,7 @@ class LogicalReaction:
         reverse: bool = False,
     ) -> None:
         self.model = model
+        self.toggle = toggle
         # TODO check if exists
         self.NW = re.compile(r"\W")
         self.REVERSE = reverse
@@ -489,15 +491,31 @@ class LogicalReaction:
             predicate_symbol="rxn", arguments=[self.word], negated=negated
         )
 
+    def _build_toggle_clause(self):
+        self._toggle_clause = LogicalClause(
+            name=self.word + "_toggle",
+            literals=[LogicalLiteral(
+                predicate_symbol="reaction_toggle",
+                arguments=[self.word],
+                negated=not self.toggle
+            )]
+        )
+
     def _build_input_clause(self, compartments: bool = False) -> None:
         self._input_clause = LogicalClause(
             name=self.word + "_in",
-            literals=map(
+            literals=[
+                LogicalLiteral(
+                    predicate_symbol="reaction_toggle",
+                    arguments=[self.word],
+                    negated=True
+                )
+            ] + list(map(
                 lambda input: input[1].as_literal(
                     compartment=(input[0] if compartments else False), negated=True
                 ),
-                self.inputs,
-            ),
+                self.inputs
+            )),
             type="axiom",
         )
         self._input_clause.literals.insert(0, self.as_literal())
@@ -604,6 +622,7 @@ class LogicalReaction:
                 return []
 
     def cnf_lines(self, compartments: bool = False) -> str:
+        self._build_toggle_clause()
         self._build_input_clause(compartments=compartments)
         self._build_output_clauses(compartments=compartments)
         self._build_activation_clauses()
@@ -612,6 +631,8 @@ class LogicalReaction:
                 self.name + (" - reverse" if self.REVERSE else ""),
                 ",".join(sorted(map(lambda c: c.name, self.compartments))),
             ),
+            "%----- toggle",
+            str(self._toggle_clause),
             "%----- input",
             str(self._input_clause),
         ]
